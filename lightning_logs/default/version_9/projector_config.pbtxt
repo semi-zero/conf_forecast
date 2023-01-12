@@ -1,0 +1,10 @@
+embeddings {
+  tensor_name: "Store:00810"
+  metadata_path: "00810/Store\\metadata.tsv"
+  tensor_path: "00810/Store\\tensors.tsv"
+}
+embeddings {
+  tensor_name: "week:00810"
+  metadata_path: "00810/week\\metadata.tsv"
+  tensor_path: "00810/week\\tensors.tsv"
+}
