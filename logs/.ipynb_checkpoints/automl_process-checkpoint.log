@@ -1,0 +1,7 @@
+2023-01-23 22:11:57,436 automl_forecast main.py main set_logger INFO: logger 세팅
+2023-01-23 22:11:57,436 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
+2023-01-23 22:11:57,436 automl_forecast input_data.py input_data read_data INFO: storage/Walmart.csv
+2023-01-23 22:11:57,458 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 6435 행, 8열
+2023-01-23 22:11:57,459 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 0.39MB
+2023-01-23 22:11:57,464 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.10MB
+2023-01-23 22:11:57,465 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 73.7%
