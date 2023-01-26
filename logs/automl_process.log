@@ -1,19 +1,19 @@
-2023-01-25 11:46:14,076 practice 2659849918.py 2659849918 set_logger INFO: logger 세팅
-2023-01-25 11:46:14,079 practice input_data.py input_data read_data INFO: csv 데이터 불러오기
-2023-01-25 11:46:14,080 practice input_data.py input_data read_data INFO: storage/Walmart.csv
-2023-01-25 11:46:14,090 practice input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 6435 행, 8열
-2023-01-25 11:46:14,091 practice input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 0.39MB
-2023-01-25 11:46:14,098 practice input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.10MB
-2023-01-25 11:46:14,099 practice input_data.py input_data reduce_mem_usage INFO: Decreased by 73.7%
-2023-01-25 11:46:14,099 practice preprocess.py preprocess na_preprocess INFO: 결측치 처리
-2023-01-25 11:46:14,105 practice preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 6435 행, 8열
-2023-01-25 11:46:14,108 practice preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
-2023-01-25 11:46:14,110 practice preprocess.py preprocess standardize INFO: 정규화 진행
-2023-01-25 11:46:14,117 practice preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
-2023-01-25 11:46:14,120 practice preprocess.py preprocess get_df INFO: 전처리 완료
-2023-01-25 11:46:14,121 practice preprocess.py preprocess get_df INFO: 
+2023-01-26 17:21:20,020 automl_forecast main.py main set_logger INFO: logger 세팅
+2023-01-26 17:21:20,020 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
+2023-01-26 17:21:20,020 automl_forecast input_data.py input_data read_data INFO: storage/Walmart.csv
+2023-01-26 17:21:20,032 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 6435 행, 8열
+2023-01-26 17:21:20,032 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 0.39MB
+2023-01-26 17:21:20,037 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.10MB
+2023-01-26 17:21:20,037 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 73.7%
+2023-01-26 17:21:20,037 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리
+2023-01-26 17:21:20,039 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 6435 행, 8열
+2023-01-26 17:21:20,040 automl_forecast preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
+2023-01-26 17:21:20,041 automl_forecast preprocess.py preprocess standardize INFO: 정규화 진행
+2023-01-26 17:21:20,048 automl_forecast preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
+2023-01-26 17:21:20,049 automl_forecast preprocess.py preprocess get_df INFO: 전처리 완료
+2023-01-26 17:21:20,049 automl_forecast preprocess.py preprocess get_df INFO: 
 
-2023-01-25 11:46:14,121 practice preprocess.py preprocess get_df INFO:    Temperature  Fuel_Price       CPI  Unemployment  Holiday_Flag  \
+2023-01-26 17:21:20,049 automl_forecast preprocess.py preprocess get_df INFO:    Temperature  Fuel_Price       CPI  Unemployment  Holiday_Flag  \
 0    -0.995605   -1.712891  1.004883      0.058716     -0.274170   
 1    -1.202148   -1.763672  1.007812      0.058716      3.646484   
 2    -1.124023   -1.840820  1.007812      0.058716     -0.274170   
@@ -26,9 +26,9 @@
 2   1611968.125  19-02-2010      1  
 3   1409727.625  26-02-2010      1  
 4   1554806.625  05-03-2010      1  
-2023-01-25 11:46:14,132 practice preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
-2023-01-25 11:46:14,215 practice preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
-2023-01-25 11:46:14,215 practice preprocess.py preprocess ts_preprocess INFO:    Temperature  Fuel_Price       CPI  Unemployment  Holiday_Flag  \
+2023-01-26 17:21:20,057 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
+2023-01-26 17:21:20,154 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
+2023-01-26 17:21:20,154 automl_forecast preprocess.py preprocess ts_preprocess INFO:    Temperature  Fuel_Price       CPI  Unemployment  Holiday_Flag  \
 0     0.607910   -1.644531  1.017578     -0.085022      -0.27417   
 1     0.087708   -1.393555  0.998047     -0.101624      -0.27417   
 2     1.098633   -1.500000  1.007812     -0.114136      -0.27417   
@@ -41,3 +41,4 @@
 2   1492418.125 2010-02-07     1         2    5  
 3   1611968.125 2010-02-19     1         3    7  
 4   1409727.625 2010-02-26     1         4    8  
+2023-01-26 17:21:20,160 automl_forecast modeling.py modeling fb_fit_predict INFO: fbprophet 데이터 준비

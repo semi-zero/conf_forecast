@@ -11,12 +11,12 @@ import pickle
 
 #전처리 class
 class Preprocessing:
-    def __init__(self, log_name, data, var_list, num_var, obj_var, target, date_var, store_list, unit, anomaly_per=10):
+    def __init__(self, log_name, data, var_list, num_var, obj_var, target_var, date_var, store_list, unit, anomaly_per=10):
         self.df = data                                     # 데이터
         self.var_list = var_list                           # 전체 변수 리스트
         self.num_var = num_var                             # 수치형 변수 리스트
         self.obj_var = obj_var                             # 문자형 변수 리스트
-        self.target = target                               # 타겟 변수
+        self.target_var = target_var                       # 타겟 변수
         self.date_var = date_var                           # 시간 변수
         self.store_list = store_list                       # 지점(상품 변수)
         self.unit = unit                                   # 시간 단위
@@ -29,7 +29,7 @@ class Preprocessing:
         #결측치 처리 먼저 진행
         self.df = self.na_preprocess(self.df, self._anomaly_ratio)
         
-        self.df, self.tds_df = self.tds_preprocess(self.df, self.target, self.date_var, self.store_list)
+        self.df, self.tds_df = self.tds_preprocess(self.df, self.target_var, self.date_var, self.store_list)
         
         # 표준화
         self.df = self.standardize(self.df, self.num_var)
@@ -41,7 +41,7 @@ class Preprocessing:
         self.df = self.get_df()
         
         # 시계열 전처리 수행
-        self.df = self.ts_preprocess(self.df, self.target, self.date_var, self.store_list, self.unit)
+        self.df = self.ts_preprocess(self.df, self.target_var, self.date_var, self.store_list, self.unit)
     
     
         # 결측치 확인 및 처리
@@ -65,15 +65,15 @@ class Preprocessing:
         return tmp_df.dropna(thresh=idx1, axis=0)
     
   
-    def tds_preprocess(self, df, target, date_var, store_list):
+    def tds_preprocess(self, df, target_var, date_var, store_list):
         #target, date, store
         self.logger.info('전처리를 위한 target, date, store 분리')
         
         #식별 변수가 있을 수도 있고 없을 수도 있다(0119)
         
         try:
-            tds_df = df[[target, date_var]+ store_list]
-            df = df.drop([target, date_var]+ store_list, axis=1)
+            tds_df = df[[target_var, date_var]+ store_list]
+            df = df.drop([target_var, date_var]+ store_list, axis=1)
             
             if date_var in self.num_var:
                 self.num_var.remove(date_var)    
@@ -84,9 +84,9 @@ class Preprocessing:
                     self.num_var.remove(store_var)    
                 else : self.obj_var.remove(store_var)
 
-            if target in self.num_var:
-                self.num_var.remove(target)    
-            else : self.obj_var.remove(target)
+            if target_var in self.num_var:
+                self.num_var.remove(target_var)    
+            else : self.obj_var.remove(target_var)
             
             
         except:
@@ -163,7 +163,7 @@ class Preprocessing:
         return self.df
 
     
-    def ts_preprocess(self, data, target, date_var, store_list, unit):
+    def ts_preprocess(self, data, target_var, date_var, store_list, unit):
         
         self.logger.info('시계열용 전처리 진행')
         try:    

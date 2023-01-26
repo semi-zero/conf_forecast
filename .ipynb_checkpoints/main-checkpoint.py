@@ -15,10 +15,10 @@ parser = argparse.ArgumentParser(description='Click & Select')
 parser.add_argument('-pth', '--PATH',  type=str, help='Path of Data')
 parser.add_argument('-target', '--target', type=str, help='Target vairable')
 parser.add_argument('-date', '--date', type=str, help='ID variable')
-parser.add_argument('-store', '--store',nargs='+', type=str, help='Store variable')
+parser.add_argument('-store', '--store', nargs='+', type=str, help='Store variable')
 parser.add_argument('-unit', '--unit', type=str, help='time unit')           
 parser.add_argument('-n', '--predict_n', type=int)
-parser.add_argument('-model_type', '--model_type', type=str, help='model type')
+#parser.add_argument('-model_type', '--model_type', type=str, help='model type')
 parser.add_argument('-hpo', '--HPO', action='store_true', help='hyperparameter optimize bool')
 
 
@@ -51,8 +51,8 @@ if __name__ == "__main__":
     log_name = 'automl_forecast'
     set_logger(log_name)
     data, var_list, num_var, obj_var = input_data.Data_load(args.PATH, log_name).read_data()
-    df = preprocess.Preprocessing(log_name, data, var_list, num_var, obj_var, target=args.target, date_var= args.date, store_list=args.store, unit=args.unit).df
-    #mm = modeling.Modeling(log_name, df, obj_var = obj_var, target=args.target, unique_id = args.unique_id, model_type=args.model_type, HPO=args.HPO)
+    df = preprocess.Preprocessing(log_name, data, var_list, num_var, obj_var, target_var=args.target, date_var= args.date, store_list=args.store, unit=args.unit).df
+    mm = modeling.Modeling(log_name, df, target_var=args.target, date_var= args.date, store_list=args.store, unit=args.unit, predict_n = args.predict_n, HPO=args.HPO)
     
     
     # 입력 예시
