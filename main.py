@@ -56,5 +56,7 @@ if __name__ == "__main__":
     
     
     # 입력 예시
-    # python main.py -pth storage/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7 
+    # python main.py -pth storage/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7 -hpo
+    # python main.py -pth storage/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7
+    # python main.py -pth storage/stallion.csv -target volume -date date -store sku agency -unit month -n 7 -hpo
     # python main.py -pth storage/stallion.csv -target volume -date date -store sku agency -unit month -n 7 
