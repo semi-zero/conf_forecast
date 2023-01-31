@@ -1,19 +1,19 @@
-2023-01-27 17:15:05,119 automl_forecast main.py main set_logger INFO: logger 세팅
-2023-01-27 17:15:05,120 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
-2023-01-27 17:15:05,120 automl_forecast input_data.py input_data read_data INFO: storage/stallion.csv
-2023-01-27 17:15:05,188 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 21000 행, 26열
-2023-01-27 17:15:05,188 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 4.17MB
-2023-01-27 17:15:05,215 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.91MB
-2023-01-27 17:15:05,216 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 78.2%
-2023-01-27 17:15:05,216 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리
-2023-01-27 17:15:05,222 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 21000 행, 26열
-2023-01-27 17:15:05,228 automl_forecast preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
-2023-01-27 17:15:05,238 automl_forecast preprocess.py preprocess standardize INFO: 정규화 진행
-2023-01-27 17:15:05,270 automl_forecast preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
-2023-01-27 17:15:05,272 automl_forecast preprocess.py preprocess get_df INFO: 전처리 완료
-2023-01-27 17:15:05,272 automl_forecast preprocess.py preprocess get_df INFO: 
+2023-01-31 16:35:32,907 practice_tft 2659849918.py 2659849918 set_logger INFO: logger 세팅
+2023-01-31 16:35:32,912 practice_tft input_data.py input_data read_data INFO: csv 데이터 불러오기
+2023-01-31 16:35:32,912 practice_tft input_data.py input_data read_data INFO: storage/stallion.csv
+2023-01-31 16:35:32,978 practice_tft input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 21000 행, 26열
+2023-01-31 16:35:32,979 practice_tft input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 4.17MB
+2023-01-31 16:35:33,006 practice_tft input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.91MB
+2023-01-31 16:35:33,008 practice_tft input_data.py input_data reduce_mem_usage INFO: Decreased by 78.2%
+2023-01-31 16:35:33,009 practice_tft preprocess.py preprocess na_preprocess INFO: 결측치 처리
+2023-01-31 16:35:33,016 practice_tft preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 21000 행, 26열
+2023-01-31 16:35:33,022 practice_tft preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
+2023-01-31 16:35:33,025 practice_tft preprocess.py preprocess standardize INFO: 정규화 진행
+2023-01-31 16:35:33,050 practice_tft preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
+2023-01-31 16:35:33,054 practice_tft preprocess.py preprocess get_df INFO: 전처리 완료
+2023-01-31 16:35:33,054 practice_tft preprocess.py preprocess get_df INFO: 
 
-2023-01-27 17:15:05,273 automl_forecast preprocess.py preprocess get_df INFO:    avg_max_temp  price_regular  price_actual  discount  discount_in_percent  \
+2023-01-31 16:35:33,055 practice_tft preprocess.py preprocess get_df INFO:    avg_max_temp  price_regular  price_actual  discount  discount_in_percent  \
 0     -0.696963      -0.413455     -0.337471 -0.328691            -0.213089   
 1     -0.531769       0.586046      0.584706  0.218970             0.252862   
 2     -1.609464      -0.264188     -0.119687 -0.430163            -0.498605   
@@ -27,36 +27,31 @@
 3        -0.815995    -1.697382            -0.978834   
 4        -0.815995    -1.697382             2.151600   
 
-   avg_yearly_household_income_2017  easter_day  good_friday  new_year  \
-0                         -0.376197   -0.301511    -0.301511  3.316625   
-1                         -1.077449   -0.301511    -0.301511  3.316625   
-2                          1.345580   -0.301511    -0.301511  3.316625   
-3                         -1.004049   -0.301511    -0.301511  3.316625   
-4                          0.632246   -0.301511    -0.301511  3.316625   
+   avg_yearly_household_income_2017  easter_day  ...  regional_games  \
+0                         -0.376197   -0.301511  ...       -0.130189   
+1                         -1.077449   -0.301511  ...       -0.130189   
+2                          1.345580   -0.301511  ...       -0.130189   
+3                         -1.004049   -0.301511  ...       -0.130189   
+4                          0.632246   -0.301511  ...       -0.130189   
 
-   christmas  labor_day  independence_day  revolution_day_memorial  \
-0  -0.301511  -0.301511         -0.301511                -0.301511   
-1  -0.301511  -0.301511         -0.301511                -0.301511   
-2  -0.301511  -0.301511         -0.301511                -0.301511   
-3  -0.301511  -0.301511         -0.301511                -0.301511   
-4  -0.301511  -0.301511         -0.301511                -0.301511   
+   fifa_u_17_world_cup  football_gold_cup  beer_capital  music_fest  \
+0                  0.0                0.0     -0.301511   -0.301511   
+1                  0.0                0.0     -0.301511   -0.301511   
+2                  0.0                0.0     -0.301511   -0.301511   
+3                  0.0                0.0     -0.301511   -0.301511   
+4                  0.0                0.0     -0.301511   -0.301511   
 
-   regional_games  fifa_u_17_world_cup  football_gold_cup  beer_capital  \
-0       -0.130189                  0.0                0.0     -0.301511   
-1       -0.130189                  0.0                0.0     -0.301511   
-2       -0.130189                  0.0                0.0     -0.301511   
-3       -0.130189                  0.0                0.0     -0.301511   
-4       -0.130189                  0.0                0.0     -0.301511   
+   timeseries     volume        date     sku     agency  
+0   -1.727109   52.28125  2013-01-01  SKU_01  Agency_22  
+1   -1.677622    0.00000  2013-01-01  SKU_04  Agency_37  
+2   -1.638032  813.00000  2013-01-01  SKU_03  Agency_59  
+3   -1.588545  316.50000  2013-01-01  SKU_01  Agency_11  
+4   -1.509365  421.00000  2013-01-01  SKU_05  Agency_05  
 
-   music_fest  timeseries     volume        date     sku     agency  
-0   -0.301511   -1.727109   52.28125  2013-01-01  SKU_01  Agency_22  
-1   -0.301511   -1.677622    0.00000  2013-01-01  SKU_04  Agency_37  
-2   -0.301511   -1.638032  813.00000  2013-01-01  SKU_03  Agency_59  
-3   -0.301511   -1.588545  316.50000  2013-01-01  SKU_01  Agency_11  
-4   -0.301511   -1.509365  421.00000  2013-01-01  SKU_05  Agency_05  
-2023-01-27 17:15:05,320 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
-2023-01-27 17:15:09,984 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
-2023-01-27 17:15:09,985 automl_forecast preprocess.py preprocess ts_preprocess INFO:    avg_max_temp  price_regular  price_actual  discount  discount_in_percent  \
+[5 rows x 26 columns]
+2023-01-31 16:35:33,072 practice_tft preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
+2023-01-31 16:35:38,128 practice_tft preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
+2023-01-31 16:35:38,129 practice_tft preprocess.py preprocess ts_preprocess INFO:    avg_max_temp  price_regular  price_actual  discount  discount_in_percent  \
 0     -0.696963      -0.413455     -0.337471 -0.328691            -0.213089   
 1      0.176207      -0.413455     -0.337471 -0.328205            -0.212274   
 2      0.203739      -0.360773     -0.281323 -0.318738            -0.217162   
@@ -70,38 +65,25 @@
 3        -0.183385    -0.167437            -1.072907   
 4         0.124586     0.168964            -1.072907   
 
-   avg_yearly_household_income_2017  easter_day  good_friday  new_year  \
-0                         -0.376197   -0.301511    -0.301511  3.316625   
-1                         -0.376197   -0.301511    -0.301511 -0.301511   
-2                         -0.376197    3.316625     3.316625 -0.301511   
-3                         -0.376197   -0.301511    -0.301511 -0.301511   
-4                         -0.376197   -0.301511    -0.301511 -0.301511   
+   avg_yearly_household_income_2017  easter_day  ...  football_gold_cup  \
+0                         -0.376197   -0.301511  ...                0.0   
+1                         -0.376197   -0.301511  ...                0.0   
+2                         -0.376197    3.316625  ...                0.0   
+3                         -0.376197   -0.301511  ...                0.0   
+4                         -0.376197   -0.301511  ...                0.0   
 
-   christmas  labor_day  independence_day  revolution_day_memorial  \
-0  -0.301511  -0.301511         -0.301511                -0.301511   
-1  -0.301511  -0.301511         -0.301511                -0.301511   
-2  -0.301511  -0.301511         -0.301511                -0.301511   
-3  -0.301511  -0.301511         -0.301511                -0.301511   
-4  -0.301511   3.316625         -0.301511                -0.301511   
+   beer_capital  music_fest  timeseries    volume       date     sku  \
+0     -0.301511   -0.301511   -1.727109  52.28125 2013-01-01  SKU_01   
+1     -0.301511   -0.301511   -1.727109  62.53125 2013-02-01  SKU_01   
+2     -0.301511    3.316625   -1.727109  74.18750 2013-03-01  SKU_01   
+3     -0.301511   -0.301511   -1.727109  89.43750 2013-04-01  SKU_01   
+4     -0.301511   -0.301511   -1.727109  79.18750 2013-05-01  SKU_01   
 
-   regional_games  fifa_u_17_world_cup  football_gold_cup  beer_capital  \
-0       -0.130189                  0.0                0.0     -0.301511   
-1       -0.130189                  0.0                0.0     -0.301511   
-2       -0.130189                  0.0                0.0     -0.301511   
-3       -0.130189                  0.0                0.0     -0.301511   
-4       -0.130189                  0.0                0.0     -0.301511   
+      agency  time_idx  month  
+0  Agency_22         0      1  
+1  Agency_22         1      2  
+2  Agency_22         2      3  
+3  Agency_22         3      4  
+4  Agency_22         4      5  
 
-   music_fest  timeseries    volume       date     sku     agency  time_idx  \
-0   -0.301511   -1.727109  52.28125 2013-01-01  SKU_01  Agency_22         0   
-1   -0.301511   -1.727109  62.53125 2013-02-01  SKU_01  Agency_22         1   
-2    3.316625   -1.727109  74.18750 2013-03-01  SKU_01  Agency_22         2   
-3   -0.301511   -1.727109  89.43750 2013-04-01  SKU_01  Agency_22         3   
-4   -0.301511   -1.727109  79.18750 2013-05-01  SKU_01  Agency_22         4   
-
-  month  
-0     1  
-1     2  
-2     3  
-3     4  
-4     5  
-2023-01-27 17:15:10,007 automl_forecast modeling.py modeling fb_fit_predict INFO: fbprophet 데이터 준비
+[5 rows x 28 columns]
