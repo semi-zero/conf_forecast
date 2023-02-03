@@ -45,7 +45,8 @@ class Modeling:
         if len(store_list) == 1 :
             store_list = ['dummy'] + store_list
             df['dummy'] = 'dummy'
-
+        
+        train_df = pd.DataFrame()
         val_df = pd.DataFrame()
         pred_df = pd.DataFrame()
 
@@ -76,8 +77,14 @@ class Modeling:
             val_preds = val_preds[['ds','yhat']]
             val_real = fb_var[['y', date_var]]
             val_preds_df = pd.merge(val_preds, val_real, left_on='ds', right_on=date_var, how='inner')
-
             
+            #train
+            train = fb_train[['y','ds']]
+            train[store_list[0]] = store_var_0
+            train[store_list[1]] = store_var_1
+            train_df = pd.concat([train_df, train], axis=0)
+            
+            #valid
             val_preds_df[store_list[0]] = store_var_0
             val_preds_df[store_list[1]] = store_var_1
             
@@ -97,7 +104,7 @@ class Modeling:
             preds[store_list[1]] = store_var_1
             pred_df = pd.concat([pred_df, preds], axis=0)
 
-
+        train_df.to_csv('train_df.csv', index=False)
         val_df.to_csv('val_df.csv', index=False)
         pred_df.to_csv('pred_df.csv', index=False)
 
