@@ -1,44 +1,115 @@
-2023-02-03 14:47:39,810 automl_forecast main.py main set_logger INFO: logger 세팅
-2023-02-03 14:47:39,810 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
-2023-02-03 14:47:39,810 automl_forecast input_data.py input_data read_data INFO: storage/Walmart.csv
-2023-02-03 14:47:39,822 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 6435 행, 8열
-2023-02-03 14:47:39,822 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 0.39MB
-2023-02-03 14:47:39,825 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.10MB
-2023-02-03 14:47:39,825 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 73.7%
-2023-02-03 14:47:39,825 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리
-2023-02-03 14:47:39,827 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 6435 행, 8열
-2023-02-03 14:47:39,828 automl_forecast preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
-2023-02-03 14:47:39,829 automl_forecast preprocess.py preprocess standardize INFO: 정규화 진행
-2023-02-03 14:47:39,834 automl_forecast preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
-2023-02-03 14:47:39,835 automl_forecast preprocess.py preprocess get_df INFO: 전처리 완료
-2023-02-03 14:47:39,835 automl_forecast preprocess.py preprocess get_df INFO: 
+2023-02-05 13:52:59,270 automl_forecast main.py main set_logger INFO: logger 세팅
+2023-02-05 13:52:59,271 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
+2023-02-05 13:52:59,271 automl_forecast input_data.py input_data read_data INFO: storage/demand_forecast_dataset.csv
+2023-02-05 13:52:59,579 automl_forecast input_data.py input_data read_data INFO: 변수 분리 시작
+2023-02-05 13:52:59,592 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 115050 행, 39열
+2023-02-05 13:52:59,592 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 34.23MB
+2023-02-05 13:52:59,791 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 9.46MB
+2023-02-05 13:52:59,791 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 72.4%
+2023-02-05 13:52:59,792 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리
+2023-02-05 13:52:59,810 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 115050 행, 39열
+2023-02-05 13:52:59,825 automl_forecast preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
+2023-02-05 13:52:59,831 automl_forecast preprocess.py preprocess standardize INFO: 정규화 진행
+2023-02-05 13:53:00,339 automl_forecast preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
+2023-02-05 13:53:00,428 automl_forecast preprocess.py preprocess get_df INFO: 전처리 완료
+2023-02-05 13:53:00,429 automl_forecast preprocess.py preprocess get_df INFO: 
 
-2023-02-03 14:47:39,835 automl_forecast preprocess.py preprocess get_df INFO:    Temperature  Fuel_Price       CPI  Unemployment  Holiday_Flag  \
-0    -0.995605   -1.712891  1.004883      0.058716     -0.274170   
-1    -1.202148   -1.763672  1.007812      0.058716      3.646484   
-2    -1.124023   -1.840820  1.007812      0.058716     -0.274170   
-3    -0.761230   -1.738281  1.010742      0.058716     -0.274170   
-4    -0.768066   -1.597656  1.010742      0.058716     -0.274170   
+2023-02-05 13:53:00,429 automl_forecast preprocess.py preprocess get_df INFO:    str_nm  l1_nm  prod_nm  evt_dur_div  avg_tmpr_val  search_cnt     l1_cd  \
+0       0      0        0            4     -1.184225    0.228434 -1.160689   
+1       0      0        0            4     -1.001111    0.897404 -1.160689   
+2       0      0        0            4     -1.001111    0.395233 -1.160689   
+3       0      0        0            4     -0.783086    0.061635 -1.160689   
+4       0      0        0            4     -0.896505    0.562032 -1.160689   
 
-   Weekly_Sales        Date  Store  
-0   1643690.875  05-02-2010      1  
-1   1641957.500  12-02-2010      1  
-2   1611968.125  19-02-2010      1  
-3   1409727.625  26-02-2010      1  
-4   1554806.625  05-03-2010      1  
-2023-02-03 14:47:39,850 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
-2023-02-03 14:47:39,953 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
-2023-02-03 14:47:39,953 automl_forecast preprocess.py preprocess ts_preprocess INFO:    Temperature  Fuel_Price       CPI  Unemployment  Holiday_Flag  \
-0     0.607910   -1.644531  1.017578     -0.085022      -0.27417   
-1     0.087708   -1.393555  0.998047     -0.101624      -0.27417   
-2     1.098633   -1.500000  1.007812     -0.114136      -0.27417   
-3    -1.124023   -1.840820  1.007812      0.058716      -0.27417   
-4    -0.761230   -1.738281  1.010742      0.058716      -0.27417   
+   dc_stk_qty  dyoff_dy  holidy_cd  sale_dc_yn  event_yn  perf_evnt  ott_dest  \
+0   -0.165029       0.0   2.612763   -0.522246 -0.542813  -0.946206 -0.151298   
+1   -0.165029       0.0  -0.382737   -0.522246 -0.542813  -1.061664 -1.140110   
+2   -0.165029       0.0  -0.382737   -0.522246 -0.542813  -1.036565 -1.147424   
+3   -0.165029       0.0  -0.382737   -0.522246 -0.542813  -1.066684 -1.069898   
+4   -0.165029       0.0  -0.382737   -0.522246 -0.542813  -0.986365 -1.137184   
 
-   Weekly_Sales       Date Store  time_idx week  
-0   1453329.500 2010-01-10     1         0    1  
-1   1594968.250 2010-02-04     1         1    5  
-2   1492418.125 2010-02-07     1         2    5  
-3   1611968.125 2010-02-19     1         3    7  
-4   1409727.625 2010-02-26     1         4    8  
-2023-02-03 14:47:39,959 automl_forecast modeling.py modeling fb_fit_predict INFO: fbprophet 데이터 준비
+       lept  cult_facl      shop      lodg  food_bevg  hist_dest  natr_dest  \
+0  0.182710  -0.446915 -0.323309  0.922892   0.755512   0.508793   4.349394   
+1 -0.654986  -0.514834 -1.202404 -0.627526  -0.900103  -0.480740   0.248341   
+2 -0.654986  -0.457639 -1.138614 -0.552678  -0.852828  -0.535714   0.291767   
+3 -0.481125  -0.514834 -1.134628 -0.543322  -0.856895  -0.590688   0.359621   
+4 -0.734014  -0.504110 -1.228318 -0.713066  -0.935177  -0.700636   0.180488   
+
+   rect_dest  local_visit  outsd_visit  forn_visit  local_outsd_visit  \
+0   1.165184    -1.494262    -0.735146   -0.617494          -1.113593   
+1  -0.284576    -1.457171    -1.203518   -0.650205          -1.363115   
+2  -0.228317    -1.468074    -1.180120   -0.650497          -1.354856   
+3  -0.310542    -1.469678    -1.183861   -0.647868          -1.357732   
+4  -0.323525    -1.461359    -1.203361   -0.654586          -1.364966   
+
+   outsd_forn_visit  tot_visit  ride_pasgr_num  alight_pasgr_num   tot_pop  \
+0         -0.738778  -1.114260       -1.313006         -1.249877 -1.789319   
+1         -1.202330  -1.362735       -1.313006         -1.249877 -1.789319   
+2         -1.179211  -1.354525       -1.313006         -1.249877 -1.789319   
+3         -1.182856  -1.357355       -1.313006         -1.249877 -1.789319   
+4         -1.202255  -1.364625       -1.313006         -1.249877 -1.789319   
+
+   male_pop  female_pop  click_cnt  disa_subs_dur  sale_qty     sale_dy  \
+0  -1.74308   -1.823571  -1.372743      -0.396059        10  2019-01-01   
+1  -1.74308   -1.823571  -0.702655      -0.396059         5  2019-01-08   
+2  -1.74308   -1.823571  -1.037699      -0.396059        31  2019-01-15   
+3  -1.74308   -1.823571  -0.646815      -0.396059        22  2019-01-22   
+4  -1.74308   -1.823571  -1.093540      -0.396059         3  2019-01-29   
+
+   str_cd   prod_cd  
+0  110438  46145000  
+1  110438  46145000  
+2  110438  46145000  
+3  110438  46145000  
+4  110438  46145000  
+2023-02-05 13:53:00,447 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
+2023-02-05 13:53:03,239 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
+2023-02-05 13:53:03,240 automl_forecast preprocess.py preprocess ts_preprocess INFO:    str_nm  l1_nm  prod_nm  evt_dur_div  avg_tmpr_val  search_cnt     l1_cd  \
+0       0      0        0            4     -1.184225    0.228434 -1.160689   
+1       0      0        0            4     -1.140628   -0.105164 -1.160689   
+2       0      0        0            4     -1.035980    0.562032 -1.160689   
+3       0      0        0            4     -0.870279    0.228434 -1.160689   
+4       0      0        0            4     -0.913875    0.061635 -1.160689   
+
+   dc_stk_qty  dyoff_dy  holidy_cd  sale_dc_yn  event_yn  perf_evnt  ott_dest  \
+0   -0.165029       0.0   2.612763   -0.522246 -0.542813  -0.946206 -0.151298   
+1   -0.165029       0.0  -0.382737   -0.522246 -0.542813  -1.051625 -0.968969   
+2   -0.165029       0.0  -0.382737   -0.522246 -0.542813  -1.066684 -1.037718   
+3   -0.165029       0.0  -0.382737   -0.522246 -0.542813  -1.031545 -1.015777   
+4   -0.165029       0.0  -0.382737   -0.522246 -0.542813  -0.951226 -0.357544   
+
+       lept  cult_facl      shop      lodg  food_bevg  hist_dest  natr_dest  \
+0  0.182710  -0.446915 -0.323309  0.922892   0.755512   0.508793   4.349394   
+1 -0.686598  -0.378996 -1.042931 -0.441743  -0.635773  -0.535714   0.579465   
+2 -0.496930  -0.436191 -1.114693 -0.499215  -0.759805  -0.590688   0.427474   
+3 -0.433708  -0.425467 -1.017016  0.016700  -0.682031  -0.590688   0.644605   
+4  0.656878  -0.128770 -0.500723  1.068578   0.355969   0.233923   3.008613   
+
+   rect_dest  local_visit  outsd_visit  forn_visit  local_outsd_visit  \
+0   1.165184    -1.494262    -0.735146   -0.617494          -1.113593   
+1  -0.206678    -1.454644    -1.169435   -0.633265          -1.342527   
+2  -0.310542    -1.455395    -1.194762   -0.603767          -1.357299   
+3  -0.020590    -1.457099    -1.153723   -0.614865          -1.334717   
+4   0.901198    -1.489995    -0.968435   -0.623919          -1.244482   
+
+   outsd_forn_visit  tot_visit  ride_pasgr_num  alight_pasgr_num   tot_pop  \
+0         -0.738778  -1.114260       -1.313006         -1.249877 -1.789319   
+1         -1.168315  -1.342072       -1.313006         -1.249877 -1.789319   
+2         -1.192758  -1.356425       -1.313006         -1.249877 -1.789319   
+3         -1.152423  -1.334101       -1.313006         -1.249877 -1.789319   
+4         -0.969471  -1.244478       -1.313006         -1.249877 -1.789319   
+
+   male_pop  female_pop  click_cnt  disa_subs_dur  sale_qty    sale_dy  \
+0  -1.74308   -1.823571  -1.372743      -0.396059        10 2019-01-01   
+1  -1.74308   -1.823571  -0.926018      -0.396059         9 2019-01-02   
+2  -1.74308   -1.823571  -1.093540      -0.396059        11 2019-01-03   
+3  -1.74308   -1.823571  -1.205221      -0.396059         3 2019-01-04   
+4  -1.74308   -1.823571  -1.428583      -0.396059         3 2019-01-05   
+
+   str_cd   prod_cd  time_idx day  
+0  110438  46145000         0   1  
+1  110438  46145000         1   2  
+2  110438  46145000         2   3  
+3  110438  46145000         3   4  
+4  110438  46145000         4   5  
+2023-02-05 13:53:06,627 automl_forecast modeling.py modeling fb_fit_predict INFO: fbprophet 데이터 준비

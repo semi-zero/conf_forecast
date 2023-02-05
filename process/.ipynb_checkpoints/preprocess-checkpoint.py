@@ -170,33 +170,36 @@ class Preprocessing:
             #store_var type이 str이어야 함
             for store_var in store_list:
                 data[store_var] = data[store_var].astype(str)
-            data[date_var] = pd.to_datetime(data[date_var],infer_datetime_format = True, utc = True).astype('datetime64[ns]')
+            
+            try:
+                data[date_var] = pd.to_datetime(data[date_var],infer_datetime_format = True, utc = True).astype('datetime64[ns]')
+            
+            except:
+                self.logger.info('날짜 변수를 확인해주세요')
+            #except:
+            #    try:
+            #        data[date_var] = data[date_var].apply(lambda x : datetime.strptime(str(x), '%Y%m%d'))
+            #    except:
+            #        self.logger.info('날짜 변수를 확인해주세요')
+            # => 날짜 양식에 따라 계속 확장해 나가야 함
             
             #store_list가 하나일 때
-            if len(store_list) == 1:
-                df = pd.DataFrame()
-                store_var = store_list[0]
-                for store in data[store_var].unique():
-                    tmp_df = data.loc[data[store_var] == store,:].sort_values(date_var).reset_index(drop=True)
-                    tmp_df['time_idx'] = tmp_df.index
-                    df = pd.concat([df, tmp_df], axis=0)
-
-                df.reset_index(drop=True, inplace=True)
-            
-            #store_list가 두개일 떄
-            else : 
-                df = pd.DataFrame()
-                for store_0 in data[store_list[0]].unique():
-                    store_df = data.loc[data[store_list[0]] == store_0, :]
-                    for store_1 in data[store_list[1]].unique():
-                        tmp_df = store_df.loc[store_df[store_list[1]]==store_1, :].sort_values(date_var).reset_index(drop=True)
-                        tmp_df['time_idx'] = tmp_df.index
-                        df = pd.concat([df, tmp_df], axis=0)
-                df.reset_index(drop=True, inplace=True)
+            if len(store_list) == 1 :
+                store_list = ['dummy'] + store_list
+                data['dummy'] = 'dummy'
                 
-            
+            df = pd.DataFrame()
+            for store_var_0, store_var_1 in data.drop_duplicates(store_list)[store_list].values:
+                tmp_df = data.loc[(data[store_list[0]]==store_var_0)&(data[store_list[1]]==store_var_1), :]
+                tmp_df = tmp_df.sort_values(date_var).reset_index(drop=True)
+                tmp_df['time_idx'] = tmp_df.index
+                df = pd.concat([df, tmp_df], axis=0)
+            df.reset_index(drop=True, inplace=True)
+                
             # add additional features
-            if unit == 'week':
+            if unit == 'day':
+                df[unit] = df[date_var].dt.day.astype(str).astype("category")
+            elif unit == 'week':
                 df[unit] = df[date_var].dt.isocalendar().week.astype(str).astype("category")  # categories have be strings
             elif unit == 'month':
                 df[unit] = df[date_var].dt.month.astype(str).astype("category")  # categories have be strings
@@ -205,5 +208,30 @@ class Preprocessing:
             self.logger.info(df.head())
         except:
             self.logger.exception('시계열용 전처리 진행 중에 문제가 발생하였습니다')     
-
+        
+        df.to_csv('preprocess.csv', index=False)
         return df
+
+    
+    #             if len(store_list) == 1:
+#                 df = pd.DataFrame()
+#                 store_var = store_list[0]
+#                 for store in data[store_var].unique():
+#                     tmp_df = data.loc[data[store_var] == store,:].sort_values(date_var).reset_index(drop=True)
+#                     tmp_df['time_idx'] = tmp_df.index
+#                     df = pd.concat([df, tmp_df], axis=0)
+
+#                 df.reset_index(drop=True, inplace=True)
+            
+#             #store_list가 두개일 떄
+#             else : 
+#                 df = pd.DataFrame()
+#                 for store_0 in data[store_list[0]].unique():
+#                     store_df = data.loc[data[store_list[0]] == store_0, :]
+#                     for store_1 in data[store_list[1]].unique():
+#                         tmp_df = store_df.loc[store_df[store_list[1]]==store_1, :].sort_values(date_var).reset_index(drop=True)
+#                         tmp_df['time_idx'] = tmp_df.index
+#                         df = pd.concat([df, tmp_df], axis=0)
+#                 df.reset_index(drop=True, inplace=True)
+                
+            

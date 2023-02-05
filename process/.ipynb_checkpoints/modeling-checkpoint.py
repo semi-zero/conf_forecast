@@ -10,10 +10,10 @@ import glob
 import logging
 from datetime import timedelta
 
-#fbprophet
-from fbprophet import Prophet
-from fbprophet.diagnostics import cross_validation
-from fbprophet.diagnostics import performance_metrics
+#prophet
+from prophet import Prophet
+from prophet.diagnostics import cross_validation
+from prophet.diagnostics import performance_metrics
 import optuna
 from optuna.samplers import TPESampler
 
@@ -35,16 +35,16 @@ class Modeling:
         self.logger = logging.getLogger(log_name)
        
         
-        self.val_df = self.fb_fit_predict(self.df, self.target_var, self.date_var, self.store_list, self.predict_n, self.HPO)
+        self.val_df = self.fb_fit_predict(self.df, self.target_var, self.date_var, self.store_list, self.unit, self.predict_n, self.HPO)
             
-    def fb_fit_predict(self, df, target_var, date_var, store_list, predict_n, HPO):
+    def fb_fit_predict(self, df, target_var, date_var, store_list, unit, predict_n, HPO):
         
         self.logger.info('fbprophet 데이터 준비')
         print(store_list)
         
         if len(store_list) == 1 :
             store_list = ['dummy'] + store_list
-            df['dummy'] = 'dummy'
+            df.loc[:, 'dummy'] = 'dummy'
         
         train_df = pd.DataFrame()
         val_df = pd.DataFrame()
@@ -52,10 +52,10 @@ class Modeling:
 
         for store_var_0, store_var_1 in df.drop_duplicates(store_list)[store_list].values:
             fb_df = df.loc[(df[store_list[0]]==store_var_0)&(df[store_list[1]]==store_var_1), :]               
-            fb_df['ds'] = fb_df[date_var]
-            fb_df['y'] = fb_df[target_var]        
-            fb_df['cap'] = np.max(fb_df[target_var].values)
-            fb_df['floor'] = np.min(fb_df[target_var].values)
+            fb_df.loc[:, 'ds'] = fb_df[date_var]
+            fb_df.loc[:, 'y'] = fb_df[target_var]        
+            fb_df.loc[:, 'cap'] = np.max(fb_df[target_var].values)
+            fb_df.loc[:, 'floor'] = np.min(fb_df[target_var].values)
 
             predict_size = predict_n
             fb_train = fb_df.iloc[:-predict_size, :]
@@ -93,7 +93,13 @@ class Modeling:
 
             #m.fit(fb_df[['ds','cap','floor']])
             last_date = fb_df[date_var].iloc[-1:].tolist()[0]
-            predict_date = [last_date + timedelta(days=7*i) for i in range(1, predict_n+1)] #weeks, days 변경 가능
+            
+            if unit =='day':
+                predict_date = [last_date + timedelta(days=i) for i in range(1, predict_n+1)] #weeks, days 변경 가능
+            elif unit == 'week':
+                predict_date = [last_date + timedelta(days=7*i) for i in range(1, predict_n+1)] #weeks, days 변경 가능
+            elif unit == 'month':
+                predict_date = [last_date + timedelta(days=30*i) for i in range(1, predict_n+1)] #weeks, days 변경 가능
             test_df = pd.DataFrame({'ds': predict_date})
             test_df['cap'] = fb_df['cap'].values[0]
             test_df['floor'] = fb_df['floor'].values[0]
