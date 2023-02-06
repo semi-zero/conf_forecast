@@ -61,3 +61,4 @@ if __name__ == "__main__":
     # python main.py -pth storage/stallion.csv -target volume -date date -store sku agency -unit month -n 7 -hpo
     # python main.py -pth storage/stallion.csv -target volume -date date -store sku agency -unit month -n 7 
     # python main.py -pth storage/demand_forecast_dataset.csv -target sale_qty -date sale_dy -store str_cd prod_cd -unit day -n 7 
+    # python main.py -pth storage/super_dataset_new.csv -target Weekly_Sales -date Date -store Store -unit week -n 14

@@ -209,7 +209,7 @@ class Preprocessing:
         except:
             self.logger.exception('시계열용 전처리 진행 중에 문제가 발생하였습니다')     
         
-        df.to_csv('preprocess.csv', index=False)
+        
         return df
 
     

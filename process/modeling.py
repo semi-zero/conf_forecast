@@ -55,7 +55,7 @@ class Modeling:
             fb_df.loc[:, 'ds'] = fb_df[date_var]
             fb_df.loc[:, 'y'] = fb_df[target_var]        
             fb_df.loc[:, 'cap'] = np.max(fb_df[target_var].values)
-            fb_df.loc[:, 'floor'] = np.min(fb_df[target_var].values)
+            fb_df.loc[:, 'floor'] = 0 #np.min(fb_df[target_var].values)
 
             predict_size = predict_n
             fb_train = fb_df.iloc[:-predict_size, :]
@@ -72,7 +72,7 @@ class Modeling:
 
             #validate 후 validate_df 생성
             m = Prophet(**parameters)
-            m.fit(fb_train[['y','ds','cap','floor']], algorithm='Newton')
+            m.fit(fb_train[['y','ds','cap','floor']])
             val_preds = m.predict(fb_var[['ds','cap','floor']])
             val_preds = val_preds[['ds','yhat']]
             val_real = fb_var[['y', date_var]]
