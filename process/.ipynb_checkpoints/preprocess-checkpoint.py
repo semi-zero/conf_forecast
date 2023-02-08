@@ -173,15 +173,12 @@ class Preprocessing:
             
             try:
                 data[date_var] = pd.to_datetime(data[date_var],infer_datetime_format = True, utc = True).astype('datetime64[ns]')
-            
             except:
-                self.logger.info('날짜 변수를 확인해주세요')
-            #except:
-            #    try:
-            #        data[date_var] = data[date_var].apply(lambda x : datetime.strptime(str(x), '%Y%m%d'))
-            #    except:
-            #        self.logger.info('날짜 변수를 확인해주세요')
-            # => 날짜 양식에 따라 계속 확장해 나가야 함
+                try:
+                    data[date_var] = data[date_var].apply(lambda x : datetime.datetime.strptime(str(x), '%Y%m%d'))
+            
+                except:
+                    self.logger.info('날짜 변수를 확인해주세요')
             
             #store_list가 하나일 때
             if len(store_list) == 1 :

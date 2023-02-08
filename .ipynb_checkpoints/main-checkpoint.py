@@ -18,7 +18,7 @@ parser.add_argument('-date', '--date', type=str, help='ID variable')
 parser.add_argument('-store', '--store', nargs='+', type=str, help='Store variable')
 parser.add_argument('-unit', '--unit', type=str, help='time unit')           
 parser.add_argument('-n', '--predict_n', type=int)
-#parser.add_argument('-model_type', '--model_type', type=str, help='model type')
+parser.add_argument('-model_type', '--model_type', type=str, help='model type')
 parser.add_argument('-hpo', '--HPO', action='store_true', help='hyperparameter optimize bool')
 
 
@@ -52,13 +52,13 @@ if __name__ == "__main__":
     set_logger(log_name)
     data, var_list, num_var, obj_var = input_data.Data_load(args.PATH, log_name).read_data()
     df = preprocess.Preprocessing(log_name, data, var_list, num_var, obj_var, target_var=args.target, date_var= args.date, store_list=args.store, unit=args.unit).df
-    mm = modeling.Modeling(log_name, df, target_var=args.target, date_var= args.date, store_list=args.store, unit=args.unit, predict_n = args.predict_n, HPO=args.HPO)
+    mm = modeling.Modeling(log_name, df, target_var=args.target, date_var= args.date, store_list=args.store, unit=args.unit, predict_n = args.predict_n, model_type=args.model_type, HPO=args.HPO)
     
     
     # 입력 예시
-    # python main.py -pth storage/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7 -hpo
-    # python main.py -pth storage/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7
-    # python main.py -pth storage/stallion.csv -target volume -date date -store sku agency -unit month -n 7 -hpo
-    # python main.py -pth storage/stallion.csv -target volume -date date -store sku agency -unit month -n 7 
-    # python main.py -pth storage/demand_forecast_dataset.csv -target sale_qty -date sale_dy -store str_cd prod_cd -unit day -n 7 
-    # python main.py -pth storage/super_dataset_new.csv -target Weekly_Sales -date Date -store Store -unit week -n 14
+    # python main.py -pth storage/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7 -hpo -model_type auto
+    # python main.py -pth storage/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7 -model_type auto
+    # python main.py -pth storage/stallion.csv -target volume -date date -store sku agency -unit month -n 7 -hpo -model_type auto
+    # python main.py -pth storage/stallion.csv -target volume -date date -store sku agency -unit month -n 7 -model_type auto
+    # python main.py -pth storage/demand_forecast_dataset.csv -target sale_qty -date sale_dy -store str_cd prod_cd -unit day -n 7 -model_type auto
+    # python main.py -pth storage/super_dataset_new.csv -target Weekly_Sales -date Date -store Store -unit week -n 14 -model_type auto

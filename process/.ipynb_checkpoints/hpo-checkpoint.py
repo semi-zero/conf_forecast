@@ -40,9 +40,9 @@ class HyperOptimization:
         'yearly_seasonality': trial.suggest_int('yearly_seasonality', 1, 20)
         }
 
-        m = Prophet(**params)
-        m.fit(self.train[['y','ds','cap','floor']])
-        preds = m.predict(self.valid[['ds','cap','floor']])
+        fb = Prophet(**params)
+        fb.fit(self.train[['y','ds','cap','floor']])
+        preds = fb.predict(self.valid[['ds','cap','floor']])
 
         mae_score = mean_absolute_error(self.valid['y'], preds['yhat'])
 
