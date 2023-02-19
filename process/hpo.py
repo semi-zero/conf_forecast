@@ -35,7 +35,6 @@ class HyperOptimization:
         'seasonality_prior_scale': trial.suggest_float('seasonality_prior_scale', 0.1, 10),
         'holidays_prior_scale': trial.suggest_float('holidays_prior_scale', 0.1, 10),
         'seasonality_mode': trial.suggest_categorical('seasonality_mode', ['multiplicative', 'additive']),
-        #'growth': trial.suggest_categorical('growth', ['linear', 'logistic']),
         'weekly_seasonality': trial.suggest_int('weekly_seasonality', 5, 10),
         'yearly_seasonality': trial.suggest_int('yearly_seasonality', 1, 20)
         }

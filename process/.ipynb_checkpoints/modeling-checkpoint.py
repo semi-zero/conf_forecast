@@ -8,6 +8,17 @@ import glob
 import logging
 from datetime import timedelta
 
+#ARIMA
+import statsmodels.api as sm
+from datetime import timedelta
+from statsmodels.tsa.seasonal import seasonal_decompose
+from pmdarima.arima import auto_arima
+from statsmodels.tsa.stattools import adfuller
+
+#ETS
+from statsmodels.tsa.holtwinters import ExponentialSmoothing
+from statsmodels.tsa.api import Holt
+
 #prophet
 from prophet import Prophet
 from prophet.diagnostics import cross_validation
@@ -15,16 +26,15 @@ from prophet.diagnostics import performance_metrics
 import optuna
 from optuna.samplers import TPESampler
 
+#Temporal Fusion Transformer
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping, LearningRateMonitor
 from pytorch_lightning.loggers import TensorBoardLogger
 import torch
-
 from pytorch_forecasting import Baseline, TemporalFusionTransformer, TimeSeriesDataSet
 from pytorch_forecasting.data import GroupNormalizer
 from pytorch_forecasting.metrics import SMAPE, PoissonLoss, QuantileLoss
 from pytorch_forecasting.models.temporal_fusion_transformer.tuning import optimize_hyperparameters
-
 import tensorflow as tf
 import tensorboard as tb
 tf.io.gfile = tb.compat.tensorflow_stub.io.gfile
@@ -58,11 +68,200 @@ class Modeling:
         self.score['mse']   = dict() #mean_squared_error(y_test, y_pred)
         
         #모델링 딕셔너리
-        model_type_dict = {'fb'  : self.fb_process(),
-                          'tft'  : self.tft_process()}
+        model_type_dict = {'ari' : self.ari_process(),
+                           'ets' : self.ets_process(),
+                           'fb'  : self.fb_process(),
+                           'tft'  : self.tft_process()}
         
         self.best_model_name, self.best_model = self.get_best_model()
         
+    #################### ARI START####################
+    
+    def ari_process(self):
+        if (self.model_type == 'ari') or (self.model_type == 'auto'): 
+            self.ari_fit_predict(self.df, self.target_var, self.date_var, self.store_list, self.unit, self.predict_n, self.HPO)
+        
+    
+    def ari_fit_predict(self, df, target_var, date_var, store_list, unit, predict_n, HPO):
+        
+        self.logger.info('arima 데이터 준비')
+        
+        
+        if len(store_list) == 1 :
+            store_list = ['dummy'] + store_list
+            df.loc[:, 'dummy'] = 'dummy'
+        
+        train_df = pd.DataFrame()
+        val_df = pd.DataFrame()
+        pred_df = pd.DataFrame()
+        
+        self.logger.info('arima 모델링 시작')
+        try:
+            for store_var_0, store_var_1 in df.drop_duplicates(store_list)[store_list].values:
+                ari_df = df.loc[(df[store_list[0]]==store_var_0)&(df[store_list[1]]==store_var_1), :]               
+                ari_df.loc[:, 'ds'] = ari_df[date_var]
+                ari_df.loc[:, 'y'] = ari_df[target_var]        
+
+                predict_size = predict_n
+                ari_train = ari_df.iloc[:-predict_size, :]
+                ari_var = ari_df.iloc[-predict_size:, :]
+
+                #auto arima best parameter pick
+                ari = auto_arima(y = ari_train['y'].values, d = 1, start_p = 0, max_p = 3, start_q = 0 
+                                  , max_q = 3, m = 1, seasonal = False , stepwise = True, trace=True)
+
+                #arima fit 후 ari_var에 예측값 대입
+                ari.fit(ari_train['y'].values)
+                val_preds = ari.predict(n_periods = predict_size)
+                ari_var.loc[:, 'yhat'] = val_preds
+
+                #train
+                train= ari_train[['y','ds']]
+                train.loc[:, store_list[0]] = store_var_0
+                train.loc[:, store_list[1]] = store_var_1
+
+                train_df = pd.concat([train_df, train], axis=0)
+
+                #valid
+                val_preds_df = ari_var[['ds','y','yhat']]
+                val_preds_df.loc[:, store_list[0]] = store_var_0
+                val_preds_df.loc[:, store_list[1]] = store_var_1
+
+                val_df = pd.concat([val_df, val_preds_df], axis=0)
+
+                #predict_date 생성 후 예측 predict_df생성
+                last_date = ari_df[date_var].iloc[-1:].tolist()[0]
+
+                if unit =='day':
+                    predict_date = [last_date + timedelta(days=i) for i in range(1, predict_n+1)] #weeks, days 변경 가능
+                elif unit == 'week':
+                    predict_date = [last_date + timedelta(days=7*i) for i in range(1, predict_n+1)] #weeks, days 변경 가능
+                elif unit == 'month':
+                    predict_date = [last_date + timedelta(days=30*i) for i in range(1, predict_n+1)] #weeks, days 변경 가능
+
+                test_df = pd.DataFrame({'ds':predict_date})
+                ari.fit(ari_df['y'].values)
+                preds = ari.predict(n_periods = predict_size)
+                test_df.loc[:, 'yhat'] = preds
+                test_df.loc[:, store_list[0]] = store_var_0
+                test_df.loc[:, store_list[1]] = store_var_1
+
+                pred_df = pd.concat([pred_df, test_df], axis=0)
+        except:
+                self.logger.exception('arima 모델링 도중 문제가 발생하였습니다.')
+                
+        train_df.to_csv('result/ari_train_df.csv', index=False)
+        val_df.to_csv('result/ari_val_df.csv', index=False)
+        pred_df.to_csv('result/ari_pred_df.csv', index=False)
+        
+        y_test = val_df['y'].values
+        y_pred = val_df['yhat'].values
+        
+        self.model['ari'] = ari
+        
+        self.score['mape']['ari']  = mape(y_test, y_pred)
+        self.score['mae']['ari']   = mean_absolute_error(y_test, y_pred)
+        self.score['mse']['ari']   = mean_squared_error(y_test, y_pred)
+        
+        
+
+
+    #################### ARI FINISH ####################
+        
+    #################### ETS START####################
+    
+    def ets_process(self):
+        if (self.model_type == 'ets') or (self.model_type == 'auto'): 
+            self.ets_fit_predict(self.df, self.target_var, self.date_var, self.store_list, self.unit, self.predict_n, self.HPO)
+        
+    
+    def ets_fit_predict(self, df, target_var, date_var, store_list, unit, predict_n, HPO):
+        
+        self.logger.info('ets 데이터 준비')
+        
+        
+        if len(store_list) == 1:
+            store_list = ['dummy'] + store_list
+            df.loc[:,'dummy'] = 'dummy'
+
+        train_df = pd.DataFrame()
+        val_df = pd.DataFrame()
+        pred_df = pd.DataFrame()
+
+        try:
+            for store_var_0, store_var_1 in df.drop_duplicates(store_list)[store_list].values:
+                ets_df = df.loc[(df[store_list[0]]==store_var_0)&(df[store_list[1]]==store_var_1), :]               
+                ets_df.loc[:, 'ds'] = ets_df[date_var]
+                ets_df.loc[:, 'y'] = ets_df[target_var]        
+
+                predict_size = predict_n
+                ets_train = ets_df.iloc[:-predict_size, :]
+                ets_var = ets_df.iloc[-predict_size:, :]
+
+                #auto arima best parameter pick
+                ets = Holt(ets_train['y'].values, exponential=True, initialization_method="estimated").fit(
+                        smoothing_level=0.8, smoothing_trend=0.2, optimized=False)
+
+                #arima fit 후 ari_var에 예측값 대입
+
+                val_preds = ets.forecast(predict_size)
+                ets_var.loc[:, 'yhat'] = val_preds
+
+                #train
+                train= ets_train[['y','ds']]
+                train.loc[:, store_list[0]] = store_var_0
+                train.loc[:, store_list[1]] = store_var_1
+
+                train_df = pd.concat([train_df, train], axis=0)
+
+                #valid
+                val_preds_df = ets_var[['ds','y','yhat']]
+                val_preds_df.loc[:, store_list[0]] = store_var_0
+                val_preds_df.loc[:, store_list[1]] = store_var_1
+
+                val_df = pd.concat([val_df, val_preds_df], axis=0)
+
+                #predict_date 생성 후 예측 predict_df생성
+                last_date = ets_df[date_var].iloc[-1:].tolist()[0]
+
+                if unit =='day':
+                    predict_date = [last_date + timedelta(days=i) for i in range(1, predict_n+1)] #weeks, days 변경 가능
+                elif unit == 'week':
+                    predict_date = [last_date + timedelta(days=7*i) for i in range(1, predict_n+1)] #weeks, days 변경 가능
+                elif unit == 'month':
+                    predict_date = [last_date + timedelta(days=30*i) for i in range(1, predict_n+1)] #weeks, days 변경 가능
+
+                test_df = pd.DataFrame({'ds':predict_date})
+                ets = Holt(ets_df['y'].values, exponential=True, initialization_method="estimated").fit(
+                        smoothing_level=0.8, smoothing_trend=0.2, optimized=False)
+
+                preds = ets.forecast(predict_size)
+                test_df.loc[:, 'yhat'] = preds
+                test_df.loc[:, store_list[0]] = store_var_0
+                test_df.loc[:, store_list[1]] = store_var_1
+
+                pred_df = pd.concat([pred_df, test_df], axis=0)
+                
+        except:
+            self.logger.exception('ets 모델링 도중 문제가 발생하였습니다.')
+                
+        train_df.to_csv('result/ets_train_df.csv', index=False)
+        val_df.to_csv('result/ets_val_df.csv', index=False)
+        pred_df.to_csv('result/ets_pred_df.csv', index=False)
+        
+        y_test = val_df['y'].values
+        y_pred = val_df['yhat'].values
+        
+        self.model['ets'] = ets
+        
+        self.score['mape']['ets']  = mape(y_test, y_pred)
+        self.score['mae']['ets']   = mean_absolute_error(y_test, y_pred)
+        self.score['mse']['ets']   = mean_squared_error(y_test, y_pred)
+        
+        
+
+
+    #################### ETS FINISH ####################
     
     #################### FB START####################
     
@@ -125,9 +324,8 @@ class Modeling:
                 val_preds_df.loc[:, store_list[1]] = store_var_1
 
                 val_df = pd.concat([val_df, val_preds_df], axis=0) 
-                #predicat_date 생성 후 예측 predict_df생성
-
-                #fb.fit(fb_df[['ds','cap','floor']])
+                
+                #predict_date 생성 후 예측 predict_df생성
                 last_date = fb_df[date_var].iloc[-1:].tolist()[0]
 
                 if unit =='day':
@@ -393,7 +591,7 @@ class Modeling:
         except:
             self.logger.exception('예측 데이터 프레임 생성 도중 문제가 생겼습니다')
             
-        train_df.to_csv('result/fb_train_df.csv', index=False)
+        train_df.to_csv('result/tft_train_df.csv', index=False)
         val_df.to_csv('result/tft_val_df.csv', index=False)
         pred_df.to_csv('result/tft_pred_df.csv', index=False)
         
@@ -419,6 +617,7 @@ class Modeling:
             best_model_name = min(self.score['mae'], key=self.score['mae'].get) 
             best_model = self.model[best_model_name]
             #best_test = self.test[best_model_name]
+            
             
             self.logger.info(f'best_model_name: {best_model_name}')
                                   
