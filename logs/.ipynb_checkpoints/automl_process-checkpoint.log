@@ -1,7 +1,55 @@
-2023-01-23 22:11:57,436 automl_forecast main.py main set_logger INFO: logger 세팅
-2023-01-23 22:11:57,436 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
-2023-01-23 22:11:57,436 automl_forecast input_data.py input_data read_data INFO: storage/Walmart.csv
-2023-01-23 22:11:57,458 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 6435 행, 8열
-2023-01-23 22:11:57,459 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 0.39MB
-2023-01-23 22:11:57,464 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.10MB
-2023-01-23 22:11:57,465 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 73.7%
+2023-02-20 09:33:41,638 automl_forecast main.py main set_logger INFO: logger 세팅
+2023-02-20 09:33:41,639 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
+2023-02-20 09:33:41,639 automl_forecast input_data.py input_data read_data INFO: storage/Walmart.csv
+2023-02-20 09:33:41,652 automl_forecast input_data.py input_data read_data INFO: 변수 분리 시작
+2023-02-20 09:33:41,654 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 6435 행, 8열
+2023-02-20 09:33:41,655 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 0.39MB
+2023-02-20 09:33:41,660 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.10MB
+2023-02-20 09:33:41,660 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 73.7%
+2023-02-20 09:33:41,660 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리
+2023-02-20 09:33:41,663 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 6435 행, 8열
+2023-02-20 09:33:41,665 automl_forecast preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
+2023-02-20 09:33:41,666 automl_forecast preprocess.py preprocess standardize INFO: 정규화 진행
+2023-02-20 09:33:41,673 automl_forecast preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
+2023-02-20 09:33:41,673 automl_forecast preprocess.py preprocess get_df INFO: 전처리 완료
+2023-02-20 09:33:41,674 automl_forecast preprocess.py preprocess get_df INFO: 
+
+2023-02-20 09:33:41,674 automl_forecast preprocess.py preprocess get_df INFO:    Temperature  Fuel_Price       CPI  Unemployment  Holiday_Flag  \
+0    -0.995605   -1.712891  1.004883      0.058716     -0.274170   
+1    -1.202148   -1.763672  1.007812      0.058716      3.646484   
+2    -1.124023   -1.840820  1.007812      0.058716     -0.274170   
+3    -0.761230   -1.738281  1.010742      0.058716     -0.274170   
+4    -0.768066   -1.597656  1.010742      0.058716     -0.274170   
+
+   Weekly_Sales        Date  Store  
+0   1643690.875  05-02-2010      1  
+1   1641957.500  12-02-2010      1  
+2   1611968.125  19-02-2010      1  
+3   1409727.625  26-02-2010      1  
+4   1554806.625  05-03-2010      1  
+2023-02-20 09:33:41,682 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
+2023-02-20 09:33:41,823 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
+2023-02-20 09:33:41,824 automl_forecast preprocess.py preprocess ts_preprocess INFO:    Temperature  Fuel_Price       CPI  Unemployment  Holiday_Flag  \
+0     0.607910   -1.644531  1.017578     -0.085022      -0.27417   
+1     0.087708   -1.393555  0.998047     -0.101624      -0.27417   
+2     1.098633   -1.500000  1.007812     -0.114136      -0.27417   
+3    -1.124023   -1.840820  1.007812      0.058716      -0.27417   
+4    -0.761230   -1.738281  1.010742      0.058716      -0.27417   
+
+   Weekly_Sales       Date Store  dummy  time_idx week  
+0   1453329.500 2010-01-10     1  dummy         0    1  
+1   1594968.250 2010-02-04     1  dummy         1    5  
+2   1492418.125 2010-02-07     1  dummy         2    5  
+3   1611968.125 2010-02-19     1  dummy         3    7  
+4   1409727.625 2010-02-26     1  dummy         4    8  
+2023-02-20 09:33:41,833 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 준비
+2023-02-20 09:33:41,834 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 전처리
+2023-02-20 09:33:41,841 automl_forecast modeling.py modeling tft_fit_predict INFO: tft dataloader 세팅
+2023-02-20 09:33:42,178 automl_forecast modeling.py modeling tft_fit_predict INFO: tft learning rate 설정
+2023-02-20 09:34:04,266 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 학습
+2023-02-20 09:34:34,973 automl_forecast modeling.py modeling tft_fit_predict INFO: 훈련, 검증 데이터 프레임 생성
+2023-02-20 09:34:35,034 automl_forecast modeling.py modeling tft_fit_predict INFO: 예측 데이터 프레임 생성
+2023-02-20 09:34:35,245 automl_forecast modeling.py modeling get_best_model INFO: Auto ML 가동
+2023-02-20 09:34:35,252 automl_forecast modeling.py modeling get_best_model INFO: automl_score:{'mape': {'tft': 6.652040034532547}, 'mae': {'tft': 61884.566}, 'mse': {'tft': 8430052000.0}}
+2023-02-20 09:34:35,252 automl_forecast modeling.py modeling get_best_model INFO: best_model_name: tft
+2023-02-20 09:34:35,253 automl_forecast modeling.py modeling get_best_model INFO: best 모델 저장
