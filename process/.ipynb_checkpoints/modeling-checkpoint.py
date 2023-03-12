@@ -7,6 +7,7 @@ import json
 import glob
 import logging
 from datetime import timedelta
+import shutil
 
 #ARIMA
 import statsmodels.api as sm
@@ -147,6 +148,7 @@ class Modeling:
                 test_df.loc[:, store_list[1]] = store_var_1
 
                 pred_df = pd.concat([pred_df, test_df], axis=0)
+                
         except:
                 self.logger.exception('arima 모델링 도중 문제가 발생하였습니다.')
                 
@@ -505,7 +507,12 @@ class Modeling:
             )
             
             best_model_path = trainer.checkpoint_callback.best_model_path
-            best_tft = TemporalFusionTransformer.load_from_checkpoint(best_model_path)
+            
+            tft_path = 'storage/model/tft.ckpt'
+            
+            #기존 저장소에서 파일 복사
+            shutil.copyfile(best_model_path, tft_path)
+            best_tft = TemporalFusionTransformer.load_from_checkpoint(tft_path)
         
         except:
             self.logger.exception('tft 학습 도중 문제가 생겼습니다')
@@ -633,11 +640,11 @@ class Modeling:
                 joblib.dump(best_model, best_model)
                 #checkpoint 불러와야 함
             else :
-                joblib.dump(best_model, 'storage/best_model.pkl')
+                joblib.dump(best_model, 'storage/model/best_model.pkl')
         
             #모델 이름 저장
             model_name = {'best_model_name' : best_model_name}
-            with open('storage/model_name.json', 'w') as f:
+            with open('storage/model/model_name.json', 'w') as f:
                 json.dump(model_name, f)
 
         except:

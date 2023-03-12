@@ -56,9 +56,9 @@ if __name__ == "__main__":
     
     
     # 입력 예시
-    # python main.py -pth storage/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7 -hpo -model_type auto
-    # python main.py -pth storage/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7 -model_type auto
-    # python main.py -pth storage/stallion.csv -target volume -date date -store sku agency -unit month -n 7 -hpo -model_type auto
-    # python main.py -pth storage/stallion.csv -target volume -date date -store sku agency -unit month -n 7 -model_type auto
-    # python main.py -pth storage/demand_forecast_dataset.csv -target sale_qty -date sale_dy -store str_cd prod_cd -unit day -n 7 -model_type auto
-    # python main.py -pth storage/demand_forecast_dataset.csv -target sale_qty -date sale_dy -store str_cd prod_cd -unit day -n 7 -hpo -model_type auto
+    # python main.py -pth storage/data/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7 -hpo -model_type auto
+    # python main.py -pth storage/data/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7 -model_type auto
+    # python main.py -pth storage/data/stallion.csv -target volume -date date -store sku agency -unit month -n 7 -hpo -model_type auto
+    # python main.py -pth storage/data/stallion.csv -target volume -date date -store sku agency -unit month -n 7 -model_type auto
+    # python main.py -pth storage/data/demand_forecast_dataset.csv -target sale_qty -date sale_dy -store str_cd prod_cd -unit day -n 7 -model_type auto
+    # python main.py -pth storage/data/demand_forecast_dataset.csv -target sale_qty -date sale_dy -store str_cd prod_cd -unit day -n 7 -hpo -model_type auto
