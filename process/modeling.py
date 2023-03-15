@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.metrics import mean_absolute_error, mean_squared_error
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score, mean_squared_log_error
 import matplotlib.pyplot as plt
 import joblib
 import json
@@ -8,6 +8,7 @@ import glob
 import logging
 from datetime import timedelta
 import shutil
+import datetime
 
 #ARIMA
 import statsmodels.api as sm
@@ -63,10 +64,16 @@ class Modeling:
         self.test = dict()
         
         self.logger = logging.getLogger(log_name)
+        
+        self.start_time = datetime.datetime.now()
        
-        self.score['mape']  = dict() #mape(y_test, y_pred)
-        self.score['mae']   = dict() #mean_absolute_error(y_test, y_pred)
-        self.score['mse']   = dict() #mean_squared_error(y_test, y_pred)
+        self.score['MAPE']    = dict() #mape(y_test, y_pred)
+        self.score['MAE']     = dict() #mean_absolute_error(y_test, y_pred)
+        self.score['MSE']     = dict() #mean_squared_error(y_test, y_pred)
+        self.score['RMSE']    = dict() #np.sqrt(mean_squared_error(y_test, y_pred))
+        self.score['RMSLE']   = dict() #np.sqrt(mean_squared_log_error(y_test, y_pred))
+        self.score['상관계수'] = dict() #r2_score(y_test, y_pred)
+        self.score['정확성']   = dict() #1-MAPE
         
         #모델링 딕셔너리
         model_type_dict = {'ari' : self.ari_process(),
@@ -75,6 +82,13 @@ class Modeling:
                            'tft'  : self.tft_process()}
         
         self.best_model_name, self.best_model = self.get_best_model()
+        
+        #학습 결과 화면을 위한 함수들
+        #1. 분석 리포트
+        self.report = self.make_report(self.target_var, self.date_var, self.unit, self.model_type, self.HPO, self.start_time)
+        
+        #2. 학습 결과 비교 화면
+        #3. 변수 중요도와 시간 중요도
         
     #################### ARI START####################
     
@@ -114,17 +128,17 @@ class Modeling:
                 #arima fit 후 ari_var에 예측값 대입
                 ari.fit(ari_train['y'].values)
                 val_preds = ari.predict(n_periods = predict_size)
-                ari_var.loc[:, 'yhat'] = val_preds
+                ari_var.loc[:, 'pred'] = val_preds
 
                 #train
-                train= ari_train[['y','ds']]
+                train= ari_train[[date_var, target_var]]
                 train.loc[:, store_list[0]] = store_var_0
                 train.loc[:, store_list[1]] = store_var_1
 
                 train_df = pd.concat([train_df, train], axis=0)
 
                 #valid
-                val_preds_df = ari_var[['ds','y','yhat']]
+                val_preds_df = ari_var[[date_var, target_var, 'pred']]
                 val_preds_df.loc[:, store_list[0]] = store_var_0
                 val_preds_df.loc[:, store_list[1]] = store_var_1
 
@@ -140,10 +154,11 @@ class Modeling:
                 elif unit == 'month':
                     predict_date = [last_date + timedelta(days=30*i) for i in range(1, predict_n+1)] #weeks, days 변경 가능
 
-                test_df = pd.DataFrame({'ds':predict_date})
+                #test_df = pd.DataFrame({'ds':predict_date})
+                test_df = pd.DataFrame({date_var : predict_date})
                 ari.fit(ari_df['y'].values)
                 preds = ari.predict(n_periods = predict_size)
-                test_df.loc[:, 'yhat'] = preds
+                test_df.loc[:, 'pred'] = preds
                 test_df.loc[:, store_list[0]] = store_var_0
                 test_df.loc[:, store_list[1]] = store_var_1
 
@@ -152,19 +167,26 @@ class Modeling:
         except:
                 self.logger.exception('arima 모델링 도중 문제가 발생하였습니다.')
                 
+                
         train_df.to_csv('result/ari_train_df.csv', index=False)
         val_df.to_csv('result/ari_val_df.csv', index=False)
         pred_df.to_csv('result/ari_pred_df.csv', index=False)
         
-        y_test = val_df['y'].values
-        y_pred = val_df['yhat'].values
+        
+        #모델 평가
+        y_test = val_df[target_var].values
+        y_pred = val_df['pred'].values
         
         self.model['ari'] = ari
         
-        self.score['mape']['ari']  = mape(y_test, y_pred)
-        self.score['mae']['ari']   = mean_absolute_error(y_test, y_pred)
-        self.score['mse']['ari']   = mean_squared_error(y_test, y_pred)
-        
+        self.score['MAPE']['ari']     = np.round(mape(y_test, y_pred), 3)
+        self.score['MAE']['ari']      = np.round(mean_absolute_error(y_test, y_pred), 3)
+        self.score['MSE']['ari']      = np.round(mean_squared_error(y_test, y_pred), 3)
+        self.score['RMSE']['ari']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
+        self.score['RMSLE']['ari']    = np.round(np.sqrt(mean_squared_log_error(y_test, y_pred)), 3)
+        self.score['상관계수']['ari']  = np.round(r2_score(y_test, y_pred), 3)
+        self.score['정확성']['ari']    = np.round(100-mape(y_test, y_pred), 3)
+
         
 
 
@@ -205,19 +227,18 @@ class Modeling:
                         smoothing_level=0.8, smoothing_trend=0.2, optimized=False)
 
                 #arima fit 후 ari_var에 예측값 대입
-
                 val_preds = ets.forecast(predict_size)
-                ets_var.loc[:, 'yhat'] = val_preds
+                ets_var.loc[:, 'pred'] = val_preds
 
                 #train
-                train= ets_train[['y','ds']]
+                train= ets_train[[date_var, target_var]]
                 train.loc[:, store_list[0]] = store_var_0
                 train.loc[:, store_list[1]] = store_var_1
 
                 train_df = pd.concat([train_df, train], axis=0)
 
                 #valid
-                val_preds_df = ets_var[['ds','y','yhat']]
+                val_preds_df = ets_var[[date_var, target_var, 'pred']]
                 val_preds_df.loc[:, store_list[0]] = store_var_0
                 val_preds_df.loc[:, store_list[1]] = store_var_1
 
@@ -233,12 +254,12 @@ class Modeling:
                 elif unit == 'month':
                     predict_date = [last_date + timedelta(days=30*i) for i in range(1, predict_n+1)] #weeks, days 변경 가능
 
-                test_df = pd.DataFrame({'ds':predict_date})
+                test_df = pd.DataFrame({date_var:predict_date})
                 ets = Holt(ets_df['y'].values, exponential=True, initialization_method="estimated").fit(
                         smoothing_level=0.8, smoothing_trend=0.2, optimized=False)
 
                 preds = ets.forecast(predict_size)
-                test_df.loc[:, 'yhat'] = preds
+                test_df.loc[:, 'pred'] = preds
                 test_df.loc[:, store_list[0]] = store_var_0
                 test_df.loc[:, store_list[1]] = store_var_1
 
@@ -251,15 +272,20 @@ class Modeling:
         val_df.to_csv('result/ets_val_df.csv', index=False)
         pred_df.to_csv('result/ets_pred_df.csv', index=False)
         
-        y_test = val_df['y'].values
-        y_pred = val_df['yhat'].values
+        #모델 평가
+        y_test = val_df[target_var].values
+        y_pred = val_df['pred'].values
         
         self.model['ets'] = ets
         
-        self.score['mape']['ets']  = mape(y_test, y_pred)
-        self.score['mae']['ets']   = mean_absolute_error(y_test, y_pred)
-        self.score['mse']['ets']   = mean_squared_error(y_test, y_pred)
-        
+        self.score['MAPE']['ets']     = np.round(mape(y_test, y_pred), 3)
+        self.score['MAE']['ets']      = np.round(mean_absolute_error(y_test, y_pred), 3)
+        self.score['MSE']['ets']      = np.round(mean_squared_error(y_test, y_pred), 3)
+        self.score['RMSE']['ets']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
+        self.score['RMSLE']['ets']    = np.round(np.sqrt(mean_squared_log_error(y_test, y_pred)), 3)
+        self.score['상관계수']['ets']  = np.round(r2_score(y_test, y_pred), 3)
+        self.score['정확성']['ets']    = np.round(100-mape(y_test, y_pred), 3)
+
         
 
 
@@ -312,11 +338,16 @@ class Modeling:
                 fb.fit(fb_train[['y','ds','cap','floor']])
                 val_preds = fb.predict(fb_var[['ds','cap','floor']])
                 val_preds = val_preds[['ds','yhat']]
-                val_real = fb_var[['y', date_var]]
-                val_preds_df = pd.merge(val_preds, val_real, left_on='ds', right_on=date_var, how='inner')
+                
+                #컬럼 이름 바꾸기
+                val_preds.rename(columns = {'ds'  : date_var, 
+                                            'yhat' : 'pred'}, inplace=True)
+                
+                val_real = fb_var[[date_var, target_var]]
+                val_preds_df = pd.merge(val_real, val_preds, on=date_var, how='inner')
 
                 #train
-                train = fb_train[['y','ds']]
+                train = fb_train[[date_var, target_var]]
                 train.loc[:, store_list[0]] = store_var_0
                 train.loc[:, store_list[1]] = store_var_1
                 train_df = pd.concat([train_df, train], axis=0)
@@ -342,6 +373,11 @@ class Modeling:
 
                 preds = fb.predict(test_df[['ds','cap','floor']])
                 preds = preds[['ds','yhat']]
+                
+                #컬럼 이름 바꾸기
+                preds.rename(columns = {'ds' : date_var,
+                                        'yhat': 'pred'}, inplace=True)
+                             
                 preds.loc[:, store_list[0]] = store_var_0
                 preds.loc[:, store_list[1]] = store_var_1
                 pred_df = pd.concat([pred_df, preds], axis=0)
@@ -353,16 +389,19 @@ class Modeling:
         val_df.to_csv('result/fb_val_df.csv', index=False)
         pred_df.to_csv('result/fb_pred_df.csv', index=False)
         
-        y_test = val_df['y'].values
-        y_pred = val_df['yhat'].values
+        y_test = val_df[target_var].values
+        y_pred = val_df['pred'].values
         
         self.model['fb'] = fb
         
-        self.score['mape']['fb']  = mape(y_test, y_pred)
-        self.score['mae']['fb']   = mean_absolute_error(y_test, y_pred)
-        self.score['mse']['fb']   = mean_squared_error(y_test, y_pred)
-        
-        
+        self.score['MAPE']['fb']     = np.round(mape(y_test, y_pred), 3)
+        self.score['MAE']['fb']      = np.round(mean_absolute_error(y_test, y_pred), 3)
+        self.score['MSE']['fb']      = np.round(mean_squared_error(y_test, y_pred), 3)
+        self.score['RMSE']['fb']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
+        self.score['RMSLE']['fb']    = np.round(np.sqrt(mean_squared_log_error(y_test, y_pred)), 3)
+        self.score['상관계수']['fb']  = np.round(r2_score(y_test, y_pred), 3)
+        self.score['정확성']['fb']    = np.round(100-mape(y_test, y_pred), 3)
+  
 
 
     #################### FB FINISH #################### 
@@ -388,7 +427,7 @@ class Modeling:
             training_cutoff = df['time_idx'].max() - max_prediction_length
 
             #매우 중요
-            df.sort_values(store_list, inplace=True)
+            df.sort_values(store_list+[date_var], inplace=True)
         
         except:
             self.logger.exception('tft 데이터 전처리 도중 문제가 발생하였습니다.')
@@ -521,7 +560,7 @@ class Modeling:
         try: 
             
             train_df = df[lambda x: x.time_idx <= x.time_idx.max() - max_prediction_length]
-            train_df = train_df[[date_var, target_var, 'time_idx'] + store_list].reset_index(drop=True)
+            train_df = train_df[[date_var, target_var] + store_list].reset_index(drop=True)
             
             val_df = df[lambda x: x.time_idx > x.time_idx.max() - max_prediction_length]
             val_df = val_df[[date_var, target_var] + store_list].reset_index(drop=True)
@@ -529,24 +568,12 @@ class Modeling:
             val_predictions = pd.DataFrame(val_predictions.reshape(-1,1).numpy(), columns=['pred'])
 
             val_df = pd.concat([val_df, val_predictions], axis=1)
+            
         except:
             self.logger.exception('훈련, 검증 데이터 프레임 생성 도중 문제가 생겼습니다')
             
         self.logger.info('예측 데이터 프레임 생성')
         try:
-            # select last 24 months from data (max_encoder_length is 24)
-            encoder_data = df[lambda x: x.time_idx > x.time_idx.max() - max_encoder_length]
-
-            # select last known data point and create decoder data from it by repeating it and incrementing the month
-            # in a real world dataset, we should not just forward fill the covariates but specify them to account
-            # for changes in special days and prices (which you absolutely should do but we are too lazy here)
-            last_data = df[lambda x: x.time_idx == x.time_idx.max()]
-
-
-            decoder_data = pd.concat(
-                [last_data.assign(date_var = lambda x: x[date_var] + timedelta(days=i),
-                                  time_idx = lambda x: x.time_idx + i) 
-                                for i in range(1, max_prediction_length + 1)], ignore_index=True, )
             
             # select last 24 months from data (max_encoder_length is 24)
             encoder_data = df[lambda x: x.time_idx > x.time_idx.max() - max_encoder_length]
@@ -574,7 +601,7 @@ class Modeling:
             #fake date_var 삽입 필요
             decoder_data.loc[:, date_var] = decoder_data['date_var']
             decoder_data.drop('date_var', axis=1, inplace=True)
-            decoder_data.sort_values(store_list, inplace=True)
+            decoder_data.sort_values(store_list+[date_var], inplace=True)
 
             # add additional features
             if unit == 'day':
@@ -607,11 +634,14 @@ class Modeling:
         
         self.model['tft'] = best_model_path
         
-        self.score['mape']['tft']  = mape(y_test, y_pred)
-        self.score['mae']['tft']   = mean_absolute_error(y_test, y_pred)
-        self.score['mse']['tft']   = mean_squared_error(y_test, y_pred)
-        
-        
+        self.score['MAPE']['tft']     = np.round(mape(y_test, y_pred), 3)
+        self.score['MAE']['tft']      = np.round(mean_absolute_error(y_test, y_pred), 3)
+        self.score['MSE']['tft']      = np.round(mean_squared_error(y_test, y_pred), 3)
+        self.score['RMSE']['tft']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
+        self.score['RMSLE']['tft']    = np.round(np.sqrt(mean_squared_log_error(y_test, y_pred)), 3)
+        self.score['상관계수']['tft']  = np.round(r2_score(y_test, y_pred), 3)
+        self.score['정확성']['tft']    = np.round(100-mape(y_test, y_pred), 3)
+     
 
     #################### TFT FINISH #################### 
             
@@ -621,7 +651,7 @@ class Modeling:
         self.logger.info('Auto ML 가동')
         self.logger.info(f'automl_score:{self.score}')
         try:
-            best_model_name = min(self.score['mae'], key=self.score['mae'].get) 
+            best_model_name = min(self.score['MAE'], key=self.score['MAE'].get) 
             best_model = self.model[best_model_name]
             #best_test = self.test[best_model_name]
             
@@ -651,3 +681,31 @@ class Modeling:
             self.logger.exception('best 모델 저장에 실패했습니다')                                                                 
         
         return best_model_name, best_model #, best_test
+    
+    #1. 분석 리포트
+    def make_report(self, target_var, date_var, unit, model_type, hpo, start_time):
+        
+        self.logger.info('학습 결과를 위한 결과물 생성')
+        try:
+            report = pd.DataFrame({'상태' : '완료됨',
+                                  '모델 ID' : ['model_id'],
+                                  '생성 시각': [start_time.strftime('%Y-%m-%d %H:%M:%S')],
+                                  '학습 시간' : [datetime.datetime.now()-start_time],
+                                   '데이터셋 ID' : 'dataset_id',
+                                   '타겟 변수' : target_var,
+                                   '날짜 변수' : date_var,
+                                   '시간 단위' : unit,
+                                   '알고리즘' : model_type, 
+                                   '목표' : '테이블 형식 시계열',
+                                   '최적화 목표' : 'MAPE',
+                                   'HPO 여부' : hpo})
+            
+            report = report.T
+        
+        except:
+            self.logger.exception('학습 결과를 위한 결과물 생성 실패했습니다')
+            
+        return report
+    
+    #2. 학습 결과 비교 화면
+    #3. 변수 중요도와 시간 중요도

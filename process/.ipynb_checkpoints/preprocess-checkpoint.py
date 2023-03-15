@@ -50,19 +50,19 @@ class Preprocessing:
         self.logger.info('결측치 처리')
         
         try:
-            #Column별 결측치 n% 이상 있을 경우 제외
-            remove_v1 = round(df.isnull().sum() / len(df)*100, 2)
-            tmp_df = df[remove_v1[remove_v1 < anomaly_per].index]
-        
-            #Row별 결측치 n% 이상 있을 경우 제외
-            idx1 = len(tmp_df.columns) * 0.7
-        
+            obj_data = df.loc[:, obj_var]
+            obj_data.fillna("NaN", inplace=True)
+
+            num_data = df.loc[:, num_var] 
+            num_data.fillna(num_data.mean(), inplace=True)
+
+            df = pd.concat([obj_data, num_data], axis=1)
         except:
             self.logger.exception('결측치 처리에 문제가 발생하였습니다')
-        
+            
         self.logger.info(f'결측치 처리 이후 데이터 구성: {df.shape[0]} 행, {df.shape[1]}열')                  
         
-        return tmp_df.dropna(thresh=idx1, axis=0)
+        return df
     
   
     def tds_preprocess(self, df, target_var, date_var, store_list):
@@ -137,7 +137,7 @@ class Preprocessing:
                 obj_data = obj_data.apply(lambda x:lbl_en[x.name].fit_transform(x))
             
                 #라벨 인코딩 저장    
-                pickle.dump(lbl_en, open('storage/label_encoder.sav', 'wb'))
+                pickle.dump(lbl_en, open('storage/label_encoder.pkl', 'wb'))
                 
             
                 tmp_df = pd.concat([obj_data, non_obj_data], axis=1)
@@ -173,6 +173,7 @@ class Preprocessing:
             
             try:
                 data[date_var] = pd.to_datetime(data[date_var],infer_datetime_format = True, utc = True).astype('datetime64[ns]')
+                
             except:
                 try:
                     data[date_var] = data[date_var].apply(lambda x : datetime.datetime.strptime(str(x), '%Y%m%d'))
@@ -210,25 +211,3 @@ class Preprocessing:
         return df
 
     
-    #             if len(store_list) == 1:
-#                 df = pd.DataFrame()
-#                 store_var = store_list[0]
-#                 for store in data[store_var].unique():
-#                     tmp_df = data.loc[data[store_var] == store,:].sort_values(date_var).reset_index(drop=True)
-#                     tmp_df['time_idx'] = tmp_df.index
-#                     df = pd.concat([df, tmp_df], axis=0)
-
-#                 df.reset_index(drop=True, inplace=True)
-            
-#             #store_list가 두개일 떄
-#             else : 
-#                 df = pd.DataFrame()
-#                 for store_0 in data[store_list[0]].unique():
-#                     store_df = data.loc[data[store_list[0]] == store_0, :]
-#                     for store_1 in data[store_list[1]].unique():
-#                         tmp_df = store_df.loc[store_df[store_list[1]]==store_1, :].sort_values(date_var).reset_index(drop=True)
-#                         tmp_df['time_idx'] = tmp_df.index
-#                         df = pd.concat([df, tmp_df], axis=0)
-#                 df.reset_index(drop=True, inplace=True)
-                
-            

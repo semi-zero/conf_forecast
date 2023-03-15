@@ -50,19 +50,19 @@ class Preprocessing:
         self.logger.info('결측치 처리')
         
         try:
-            #Column별 결측치 n% 이상 있을 경우 제외
-            remove_v1 = round(df.isnull().sum() / len(df)*100, 2)
-            tmp_df = df[remove_v1[remove_v1 < anomaly_per].index]
-        
-            #Row별 결측치 n% 이상 있을 경우 제외
-            idx1 = len(tmp_df.columns) * 0.7
-        
+            obj_data = df.loc[:, obj_var]
+            obj_data.fillna("NaN", inplace=True)
+
+            num_data = df.loc[:, num_var] 
+            num_data.fillna(num_data.mean(), inplace=True)
+
+            df = pd.concat([obj_data, num_data], axis=1)
         except:
             self.logger.exception('결측치 처리에 문제가 발생하였습니다')
-        
+            
         self.logger.info(f'결측치 처리 이후 데이터 구성: {df.shape[0]} 행, {df.shape[1]}열')                  
         
-        return tmp_df.dropna(thresh=idx1, axis=0)
+        return df
     
   
     def tds_preprocess(self, df, target_var, date_var, store_list):
