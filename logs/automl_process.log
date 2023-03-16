@@ -1,25 +1,25 @@
-2023-03-16 11:50:07,545 automl_forecast main.py main set_logger INFO: logger 세팅
-2023-03-16 11:50:07,546 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
-2023-03-16 11:50:07,546 automl_forecast input_data.py input_data read_data INFO: storage/data/stallion.csv
-2023-03-16 11:50:07,589 automl_forecast input_data.py input_data read_data INFO: 변수 분리 시작
-2023-03-16 11:50:07,592 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 21000 행, 26열
-2023-03-16 11:50:07,593 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 4.17MB
-2023-03-16 11:50:07,610 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.91MB
-2023-03-16 11:50:07,611 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 78.2%
-2023-03-16 11:50:07,612 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리
-2023-03-16 11:50:07,612 automl_forecast preprocess.py preprocess na_preprocess ERROR: 결측치 처리에 문제가 발생하였습니다
+2023-03-16 14:25:37,790 automl_forecast main.py main set_logger INFO: logger 세팅
+2023-03-16 14:25:37,790 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
+2023-03-16 14:25:37,790 automl_forecast input_data.py input_data read_data INFO: storage/data/stallion.csv
+2023-03-16 14:25:37,855 automl_forecast input_data.py input_data read_data INFO: 변수 분리 시작
+2023-03-16 14:25:37,859 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 21000 행, 26열
+2023-03-16 14:25:37,860 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 4.17MB
+2023-03-16 14:25:37,891 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.91MB
+2023-03-16 14:25:37,892 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 78.2%
+2023-03-16 14:25:37,899 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리
+2023-03-16 14:25:37,900 automl_forecast preprocess.py preprocess na_preprocess ERROR: 결측치 처리에 문제가 발생하였습니다
 Traceback (most recent call last):
-  File "C:\Users\dpapf\Desktop\automl_forecast\process\preprocess.py", line 53, in na_preprocess
+  File "C:\Users\dpapf\Desktop\automl_forecast\process\preprocess.py", line 56, in na_preprocess
     obj_data = df.loc[:, obj_var]
 NameError: name 'obj_var' is not defined
-2023-03-16 11:50:07,612 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 21000 행, 26열
-2023-03-16 11:50:07,612 automl_forecast preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
-2023-03-16 11:50:07,614 automl_forecast preprocess.py preprocess standardize INFO: 정규화 진행
-2023-03-16 11:50:07,672 automl_forecast preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
-2023-03-16 11:50:07,675 automl_forecast preprocess.py preprocess get_df INFO: 전처리 완료
-2023-03-16 11:50:07,676 automl_forecast preprocess.py preprocess get_df INFO: 
+2023-03-16 14:25:37,900 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 21000 행, 26열
+2023-03-16 14:25:37,900 automl_forecast preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
+2023-03-16 14:25:37,904 automl_forecast preprocess.py preprocess standardize INFO: 정규화 진행
+2023-03-16 14:25:38,002 automl_forecast preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
+2023-03-16 14:25:38,005 automl_forecast preprocess.py preprocess get_df INFO: 전처리 완료
+2023-03-16 14:25:38,005 automl_forecast preprocess.py preprocess get_df INFO: 
 
-2023-03-16 11:50:07,676 automl_forecast preprocess.py preprocess get_df INFO:    avg_max_temp  price_regular  price_actual  discount  discount_in_percent  \
+2023-03-16 14:25:38,006 automl_forecast preprocess.py preprocess get_df INFO:    avg_max_temp  price_regular  price_actual  discount  discount_in_percent  \
 0     -0.696963      -0.413455     -0.337471 -0.328691            -0.213089   
 1     -0.531769       0.586046      0.584706  0.218970             0.252862   
 2     -1.609464      -0.264188     -0.119687 -0.430163            -0.498605   
@@ -56,13 +56,13 @@ NameError: name 'obj_var' is not defined
 
    music_fest  timeseries     volume        date     sku     agency  
 0   -0.301511   -1.727109   52.28125  2013-01-01  SKU_01  Agency_22  
-1   -0.301511   -1.677622    0.00000  2013-01-01  SKU_04  Agency_37  
+1   -0.301511   -1.677622    1.00000  2013-01-01  SKU_04  Agency_37  
 2   -0.301511   -1.638032  813.00000  2013-01-01  SKU_03  Agency_59  
 3   -0.301511   -1.588545  316.50000  2013-01-01  SKU_01  Agency_11  
 4   -0.301511   -1.509365  421.00000  2013-01-01  SKU_05  Agency_05  
-2023-03-16 11:50:07,691 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
-2023-03-16 11:50:09,006 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
-2023-03-16 11:50:09,006 automl_forecast preprocess.py preprocess ts_preprocess INFO:    avg_max_temp  price_regular  price_actual  discount  discount_in_percent  \
+2023-03-16 14:25:38,033 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
+2023-03-16 14:25:40,300 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
+2023-03-16 14:25:40,300 automl_forecast preprocess.py preprocess ts_preprocess INFO:    avg_max_temp  price_regular  price_actual  discount  discount_in_percent  \
 0     -0.696963      -0.413455     -0.337471 -0.328691            -0.213089   
 1      0.176207      -0.413455     -0.337471 -0.328205            -0.212274   
 2      0.203739      -0.360773     -0.281323 -0.318738            -0.217162   
@@ -110,115 +110,18 @@ NameError: name 'obj_var' is not defined
 2     3  
 3     4  
 4     5  
-2023-03-16 11:50:09,022 automl_forecast modeling.py modeling ari_fit_predict INFO: arima 데이터 준비
-2023-03-16 11:50:09,022 automl_forecast modeling.py modeling ari_fit_predict INFO: arima 모델링 시작
-2023-03-16 11:53:20,744 automl_forecast modeling.py modeling ets_fit_predict INFO: ets 데이터 준비
-2023-03-16 11:53:20,822 automl_forecast modeling.py modeling ets_fit_predict ERROR: ets 모델링 도중 문제가 발생하였습니다.
-Traceback (most recent call last):
-  File "C:\Users\dpapf\Desktop\automl_forecast\process\modeling.py", line 241, in ets_fit_predict
-    ets = Holt(ets_train['y'].values, exponential=True, initialization_method="estimated").fit(
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pandas\util\_decorators.py", line 211, in wrapper
-    return func(*args, **kwargs)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\statsmodels\tsa\holtwinters\model.py", line 1694, in __init__
-    super().__init__(
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pandas\util\_decorators.py", line 211, in wrapper
-    return func(*args, **kwargs)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\statsmodels\tsa\holtwinters\model.py", line 243, in __init__
-    raise ValueError(
-ValueError: endog must be strictly positive when usingmultiplicative trend or seasonal components.
-2023-03-16 11:53:20,828 automl_forecast modeling.py modeling fb_fit_predict INFO: fbprophet 데이터 준비
-2023-03-16 11:53:20,829 automl_forecast modeling.py modeling fb_fit_predict INFO: fbprophet 모델링 시작
-2023-03-16 13:06:03,354 automl_forecast modeling.py modeling fb_fit_predict ERROR: fbprophet 모델링 도중 문제가 발생하였습니다.
-Traceback (most recent call last):
-  File "C:\Users\dpapf\Desktop\automl_forecast\process\modeling.py", line 358, in fb_fit_predict
-    fb.fit(fb_train[['y','ds','cap','floor']])
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\prophet\forecaster.py", line 1181, in fit
-    self.params = self.stan_backend.fit(stan_init, dat, **kwargs)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\prophet\models.py", line 96, in fit
-    self.stan_fit = self.model.optimize(**args)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\cmdstanpy\model.py", line 723, in optimize
-    self._run_cmdstan(
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\cmdstanpy\model.py", line 1722, in _run_cmdstan
-    line = proc.stdout.readline()
-KeyboardInterrupt
-2023-03-16 13:06:03,362 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 준비
-2023-03-16 13:06:03,362 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 전처리
-2023-03-16 13:06:03,396 automl_forecast modeling.py modeling tft_fit_predict INFO: tft dataloader 세팅
-2023-03-16 13:06:04,518 automl_forecast modeling.py modeling tft_fit_predict INFO: tft learning rate 설정
-2023-03-16 13:06:09,184 automl_forecast modeling.py modeling tft_fit_predict ERROR: tft learning rate 설정 도중 문제가 생겼습니다.
-Traceback (most recent call last):
-  File "C:\Users\dpapf\Desktop\automl_forecast\process\modeling.py", line 524, in tft_fit_predict
-    res = trainer.tuner.lr_find(
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\tuner\tuning.py", line 185, in lr_find
-    result = self.trainer.tune(
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\trainer\trainer.py", line 1099, in tune
-    result = self.tuner._tune(model, scale_batch_size_kwargs=scale_batch_size_kwargs, lr_find_kwargs=lr_find_kwargs)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\tuner\tuning.py", line 53, in _tune
-    result["lr_find"] = lr_find(self.trainer, model, **lr_find_kwargs)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\tuner\lr_finder.py", line 238, in lr_find
-    trainer.tuner._run(model)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\tuner\tuning.py", line 63, in _run
-    self.trainer._run(*args, **kwargs)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\trainer\trainer.py", line 1199, in _run
-    self._dispatch()
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\trainer\trainer.py", line 1279, in _dispatch
-    self.training_type_plugin.start_training(self)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\plugins\training_type\training_type_plugin.py", line 202, in start_training
-    self._results = trainer.run_stage()
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\trainer\trainer.py", line 1289, in run_stage
-    return self._run_train()
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\trainer\trainer.py", line 1319, in _run_train
-    self.fit_loop.run()
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\loops\base.py", line 145, in run
-    self.advance(*args, **kwargs)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\loops\fit_loop.py", line 234, in advance
-    self.epoch_loop.run(data_fetcher)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\loops\base.py", line 145, in run
-    self.advance(*args, **kwargs)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\loops\epoch\training_epoch_loop.py", line 156, in advance
-    batch_idx, (batch, self.batch_progress.is_last_batch) = next(self._dataloader_iter)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\utilities\fetching.py", line 203, in __next__
-    return self.fetching_function()
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\utilities\fetching.py", line 270, in fetching_function
-    self._fetch_next_batch()
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\utilities\fetching.py", line 300, in _fetch_next_batch
-    batch = next(self.dataloader_iter)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\trainer\supporters.py", line 550, in __next__
-    return self.request_next_batch(self.loader_iters)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\trainer\supporters.py", line 562, in request_next_batch
-    return apply_to_collection(loader_iters, Iterator, next)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_lightning\utilities\apply_func.py", line 96, in apply_to_collection
-    return function(data, *args, **kwargs)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\torch\utils\data\dataloader.py", line 681, in __next__
-    data = self._next_data()
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\torch\utils\data\dataloader.py", line 721, in _next_data
-    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\torch\utils\data\_utils\fetch.py", line 49, in fetch
-    data = [self.dataset[idx] for idx in possibly_batched_index]
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\torch\utils\data\_utils\fetch.py", line 49, in <listcomp>
-    data = [self.dataset[idx] for idx in possibly_batched_index]
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_forecasting\data\timeseries.py", line 1513, in __getitem__
-    data_cont[:, self.reals.index("encoder_length")] = (
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\site-packages\pytorch_forecasting\data\timeseries.py", line 1027, in reals
-    @property
-KeyboardInterrupt
-2023-03-16 13:06:09,256 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 학습
-2023-03-16 13:06:10,514 automl_forecast modeling.py modeling tft_fit_predict ERROR: tft 학습 도중 문제가 생겼습니다
-Traceback (most recent call last):
-  File "C:\Users\dpapf\Desktop\automl_forecast\process\modeling.py", line 582, in tft_fit_predict
-    shutil.copyfile(best_model_path, tft_path)
-  File "C:\Users\dpapf\anaconda3\envs\demand\lib\shutil.py", line 254, in copyfile
-    with open(src, 'rb') as fsrc:
-FileNotFoundError: [Errno 2] No such file or directory: ''
-2023-03-16 13:06:10,524 automl_forecast modeling.py modeling tft_fit_predict INFO: 훈련, 검증 데이터 프레임 생성
-2023-03-16 13:06:10,543 automl_forecast modeling.py modeling tft_fit_predict ERROR: 훈련, 검증 데이터 프레임 생성 도중 문제가 생겼습니다
-Traceback (most recent call last):
-  File "C:\Users\dpapf\Desktop\automl_forecast\process\modeling.py", line 596, in tft_fit_predict
-    val_predictions = best_tft.predict(val_dataloader, mode="prediction", return_x=False)
-UnboundLocalError: local variable 'best_tft' referenced before assignment
-2023-03-16 13:06:10,544 automl_forecast modeling.py modeling tft_fit_predict INFO: 예측 데이터 프레임 생성
-2023-03-16 13:06:10,582 automl_forecast modeling.py modeling tft_fit_predict ERROR: 예측 데이터 프레임 생성 도중 문제가 생겼습니다
-Traceback (most recent call last):
-  File "C:\Users\dpapf\Desktop\automl_forecast\process\modeling.py", line 648, in tft_fit_predict
-    predictions = best_tft.predict(new_prediction_data, mode="prediction", return_x=False)
-UnboundLocalError: local variable 'best_tft' referenced before assignment
+2023-03-16 14:25:40,327 automl_forecast modeling.py modeling ets_fit_predict INFO: ets 데이터 준비
+2023-03-16 14:26:06,505 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 준비
+2023-03-16 14:26:06,507 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 전처리
+2023-03-16 14:26:06,545 automl_forecast modeling.py modeling tft_fit_predict INFO: tft dataloader 세팅
+2023-03-16 14:26:07,944 automl_forecast modeling.py modeling tft_fit_predict INFO: tft learning rate 설정
+2023-03-16 14:26:36,311 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 학습
+2023-03-16 14:26:51,395 automl_forecast modeling.py modeling tft_fit_predict INFO: 훈련, 검증 데이터 프레임 생성
+2023-03-16 14:26:51,753 automl_forecast modeling.py modeling tft_fit_predict INFO: 예측 데이터 프레임 생성
+2023-03-16 14:26:52,976 automl_forecast modeling.py modeling get_best_model INFO: Auto ML 가동
+2023-03-16 14:26:52,977 automl_forecast modeling.py modeling get_best_model INFO: automl_score:{'MAPE': {'ets': 31059235913.694}, 'MAE': {'ets': 47949951137.669}, 'MSE': {'ets': 3.7210069541965807e+24}, 'RMSE': {'ets': 1928991175251.09}, '상관계수': {'ets': -4.315369671144033e+17}, '정확성': {'ets': -31059235813.694}}
+2023-03-16 14:26:52,977 automl_forecast modeling.py modeling get_best_model INFO: best_model_name: ets
+2023-03-16 14:26:52,977 automl_forecast modeling.py modeling get_best_model INFO: best 모델 저장
+2023-03-16 14:26:52,977 automl_forecast modeling.py modeling get_best_model INFO: <statsmodels.tsa.holtwinters.results.HoltWintersResultsWrapper object at 0x0000027A2444B580>
+2023-03-16 14:26:52,984 automl_forecast modeling.py modeling make_report INFO: 학습 결과를 위한 결과물 생성
+2023-03-16 14:26:52,986 automl_forecast modeling.py modeling get_eval INFO: best 모델 및 전체 모델 검증치 추출

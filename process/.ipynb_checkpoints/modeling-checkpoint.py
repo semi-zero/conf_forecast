@@ -179,10 +179,14 @@ class Modeling:
         except:
                 self.logger.exception('arima 모델링 도중 문제가 발생하였습니다.')
         
-        if len(store_list) == 1 :
-            train_df.drop(['dummy'], axis=1, inplace=True)
-            var_df.drop(['dummy'], axis=1, inplace=True)
-            pred_df.drop(['dummy'], axis=1, inplace=True)
+        train_df.reset_index(drop=True, inplace=True)
+        val_df.reset_index(drop=True, inplace=True)
+        pred_df.reset_index(drop=True, inplace=True)
+        
+        if 'dummy' in train_df.columns :
+            train_df = train_df.drop(['dummy'], axis=1)
+            val_df = val_df.drop(['dummy'], axis=1)
+            pred_df = pred_df.drop(['dummy'], axis=1)
             
         
         self.result_df['train_df']['ari'] = train_df
@@ -282,6 +286,10 @@ class Modeling:
                 
         except:
             self.logger.exception('ets 모델링 도중 문제가 발생하였습니다.')
+        
+        train_df.reset_index(drop=True, inplace=True)
+        val_df.reset_index(drop=True, inplace=True)
+        pred_df.reset_index(drop=True, inplace=True)
         
         #만들었던 dummy column 삭제
         if 'dummy' in train_df.columns :
@@ -405,10 +413,14 @@ class Modeling:
         except:
                 self.logger.exception('fbprophet 모델링 도중 문제가 발생하였습니다.')
                 
-        if len(store_list) == 1 :
-            train_df.drop(['dummy'], axis=1, inplace=True)
-            var_df.drop(['dummy'], axis=1, inplace=True)
-            pred_df.drop(['dummy'], axis=1, inplace=True)
+        train_df.reset_index(drop=True, inplace=True)
+        val_df.reset_index(drop=True, inplace=True)
+        pred_df.reset_index(drop=True, inplace=True)
+        
+        if 'dummy' in train_df.columns :
+            train_df = train_df.drop(['dummy'], axis=1)
+            val_df = val_df.drop(['dummy'], axis=1)
+            pred_df = pred_df.drop(['dummy'], axis=1)
             
         self.result_df['train_df']['fb'] = train_df
         self.result_df['val_df']['fb'] = val_df
@@ -586,6 +598,7 @@ class Modeling:
             self.logger.exception('tft 학습 도중 문제가 생겼습니다')
             
         self.logger.info('훈련, 검증 데이터 프레임 생성')
+        
         try: 
             
             train_df = df[lambda x: x.time_idx <= x.time_idx.max() - max_prediction_length]
@@ -671,7 +684,11 @@ class Modeling:
         self.vi['static'] = static_variables
         self.vi['encoder'] = encoder_variables         
         
-        if (self.model_type == 'tft') or (self.model_type == 'auto'):          
+        if (self.model_type == 'tft') or (self.model_type == 'auto'):   
+            train_df.reset_index(drop=True, inplace=True)
+            val_df.reset_index(drop=True, inplace=True)
+            pred_df.reset_index(drop=True, inplace=True)
+        
             self.result_df['train_df']['tft'] = train_df
             self.result_df['val_df']['tft'] = val_df
             self.result_df['pred_df']['tft'] = pred_df 
