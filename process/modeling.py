@@ -101,6 +101,7 @@ class Modeling:
         #2. 학습 결과 비교 화면
         #3. 변수 중요도와 시간 중요도
         self.test_score, self.valid_score, self.best_train_df, self.best_val_df, self.best_pred_df, self.vi_time, self.vi_static, self.vi_encoder =  self.get_eval(self.best_model_name)
+        
     #################### ARI START####################
     
     def ari_process(self):
@@ -177,15 +178,17 @@ class Modeling:
                 
         except:
                 self.logger.exception('arima 모델링 도중 문제가 발생하였습니다.')
-                
+        
+        if len(store_list) == 1 :
+            train_df.drop(['dummy'], axis=1, inplace=True)
+            var_df.drop(['dummy'], axis=1, inplace=True)
+            pred_df.drop(['dummy'], axis=1, inplace=True)
+            
+        
         self.result_df['train_df']['ari'] = train_df
         self.result_df['val_df']['ari'] = val_df
         self.result_df['pred_df']['ari'] = pred_df
-#         train_df.to_csv('result/ari_train_df.csv', index=False)
-#         val_df.to_csv('result/ari_val_df.csv', index=False)
-#         pred_df.to_csv('result/ari_pred_df.csv', index=False)
-        
-        
+
         #모델 평가
         y_test = val_df[target_var].values
         y_pred = val_df['pred'].values
@@ -279,7 +282,13 @@ class Modeling:
                 
         except:
             self.logger.exception('ets 모델링 도중 문제가 발생하였습니다.')
-                           
+        
+        #만들었던 dummy column 삭제
+        if 'dummy' in train_df.columns :
+            train_df = train_df.drop(['dummy'], axis=1)
+            val_df = val_df.drop(['dummy'], axis=1)
+            pred_df = pred_df.drop(['dummy'], axis=1)
+            
         self.result_df['train_df']['ets'] = train_df
         self.result_df['val_df']['ets'] = val_df
         self.result_df['pred_df']['ets'] = pred_df        
@@ -329,7 +338,7 @@ class Modeling:
                 fb_df.loc[:, 'ds'] = fb_df[date_var]
                 fb_df.loc[:, 'y'] = fb_df[target_var]        
                 fb_df.loc[:, 'cap'] = np.max(fb_df[target_var].values)
-                fb_df.loc[:, 'floor'] = 0 #np.min(fb_df[target_var].values)
+                fb_df.loc[:, 'floor'] = 1 #np.min(fb_df[target_var].values)
 
                 predict_size = predict_n
                 fb_train = fb_df.iloc[:-predict_size, :]
@@ -395,14 +404,16 @@ class Modeling:
         
         except:
                 self.logger.exception('fbprophet 모델링 도중 문제가 발생하였습니다.')
-        
+                
+        if len(store_list) == 1 :
+            train_df.drop(['dummy'], axis=1, inplace=True)
+            var_df.drop(['dummy'], axis=1, inplace=True)
+            pred_df.drop(['dummy'], axis=1, inplace=True)
+            
         self.result_df['train_df']['fb'] = train_df
         self.result_df['val_df']['fb'] = val_df
         self.result_df['pred_df']['fb'] = pred_df 
-#         train_df.to_csv('result/fb_train_df.csv', index=False)
-#         val_df.to_csv('result/fb_val_df.csv', index=False)
-#         pred_df.to_csv('result/fb_pred_df.csv', index=False)
-        
+    
         y_test = val_df[target_var].values
         y_pred = val_df['pred'].values
         
@@ -658,27 +669,25 @@ class Modeling:
         
         self.vi['time'] = time_variables
         self.vi['static'] = static_variables
-        self.vi['encoder'] = encoder_variables               
-                        
-        self.result_df['train_df']['tft'] = train_df
-        self.result_df['val_df']['tft'] = val_df
-        self.result_df['pred_df']['tft'] = pred_df 
-#         train_df.to_csv('result/tft_train_df.csv', index=False)
-#         val_df.to_csv('result/tft_val_df.csv', index=False)
-#         pred_df.to_csv('result/tft_pred_df.csv', index=False)
+        self.vi['encoder'] = encoder_variables         
         
-        y_test = val_df[target_var].values
-        y_pred = val_df['pred'].values
-        
-        self.model['tft'] = best_model_path
-        
-        self.score['MAPE']['tft']     = np.round(mape(y_test, y_pred), 3)
-        self.score['MAE']['tft']      = np.round(mean_absolute_error(y_test, y_pred), 3)
-        self.score['MSE']['tft']      = np.round(mean_squared_error(y_test, y_pred), 3)
-        self.score['RMSE']['tft']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
-        self.score['상관계수']['tft']  = np.round(r2_score(y_test, y_pred), 3)
-        self.score['정확성']['tft']    = np.round(100-mape(y_test, y_pred), 3)
-     
+        if (self.model_type == 'tft') or (self.model_type == 'auto'):          
+            self.result_df['train_df']['tft'] = train_df
+            self.result_df['val_df']['tft'] = val_df
+            self.result_df['pred_df']['tft'] = pred_df 
+
+            y_test = val_df[target_var].values
+            y_pred = val_df['pred'].values
+
+            self.model['tft'] = best_model_path
+
+            self.score['MAPE']['tft']     = np.round(mape(y_test, y_pred), 3)
+            self.score['MAE']['tft']      = np.round(mean_absolute_error(y_test, y_pred), 3)
+            self.score['MSE']['tft']      = np.round(mean_squared_error(y_test, y_pred), 3)
+            self.score['RMSE']['tft']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
+            self.score['상관계수']['tft']  = np.round(r2_score(y_test, y_pred), 3)
+            self.score['정확성']['tft']    = np.round(100-mape(y_test, y_pred), 3)
+
 
     #################### TFT FINISH #################### 
             
@@ -769,13 +778,13 @@ class Modeling:
             best_val_df.to_csv('result/best_val_df.csv', index=False)
             best_pred_df.to_csv('result/best_pred_df.csv', index=False)
             
-            vi_time = self.vi['time'] 
-            vi_static = self.vi['static'] 
-            vi_encoder = self.vi['encoder'] 
+            vi_time = self.vi['time']
+            vi_static = self.vi['static']
+            vi_encoder = self.vi['encoder']
             
-            vi_time.to_csv('result/vi_time.csv', index=False)
-            vi_static.to_csv('result/vi_static.csv', index=False)
-            vi_encoder.to_csv('result/vi_encoder.csv', index=False)
+            vi_time.to_csv('result/vi_time.csv')
+            vi_static.to_csv('result/vi_static.csv')
+            vi_encoder.to_csv('result/vi_encoder.csv')
          
         except:
             self.logger.exception('학습 결과를 위한 결과물 생성 실패했습니다')
