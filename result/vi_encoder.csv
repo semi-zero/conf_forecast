@@ -1,8 +1,7 @@
 ,인코더 변수중요도
-month,0.10466479
-time_idx,0.17039041
-relative_time_idx,0.090142846
-volume,0.18250254
-log_volume,0.08944525
-avg_volume_by_sku,0.07752788
-avg_volume_by_agency,0.2853263
+week,0.2184956
+time_idx,0.411305
+relative_time_idx,0.15659454
+Weekly_Sales,0.0866439
+log_Weekly_Sales,0.064255364
+avg_Weekly_Sales_by_Store,0.06270556

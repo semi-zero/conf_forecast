@@ -125,7 +125,8 @@ class Modeling:
         self.logger.info('arima 모델링 시작')
         try:
             for store_var_0, store_var_1 in df.drop_duplicates(store_list)[store_list].values:
-                ari_df = df.loc[(df[store_list[0]]==store_var_0)&(df[store_list[1]]==store_var_1), :]               
+                ari_df = df.loc[(df[store_list[0]]==store_var_0)&(df[store_list[1]]==store_var_1), :]  
+                ari_df.sort_values([date_var], inplace=True) #재정리
                 ari_df.loc[:, 'ds'] = ari_df[date_var]
                 ari_df.loc[:, 'y'] = ari_df[target_var]        
 
@@ -233,7 +234,8 @@ class Modeling:
 
         try:
             for store_var_0, store_var_1 in df.drop_duplicates(store_list)[store_list].values:
-                ets_df = df.loc[(df[store_list[0]]==store_var_0)&(df[store_list[1]]==store_var_1), :]               
+                ets_df = df.loc[(df[store_list[0]]==store_var_0)&(df[store_list[1]]==store_var_1), :]   
+                ets_df.sort_values([date_var], inplace=True) #재정리
                 ets_df.loc[:, 'ds'] = ets_df[date_var]
                 ets_df.loc[:, 'y'] = ets_df[target_var]        
 
@@ -342,7 +344,8 @@ class Modeling:
         self.logger.info('fbprophet 모델링 시작')
         try:
             for store_var_0, store_var_1 in df.drop_duplicates(store_list)[store_list].values:
-                fb_df = df.loc[(df[store_list[0]]==store_var_0)&(df[store_list[1]]==store_var_1), :]               
+                fb_df = df.loc[(df[store_list[0]]==store_var_0)&(df[store_list[1]]==store_var_1), :]     
+                fb_df.sort_values([date_var], inplace=True) #재정리
                 fb_df.loc[:, 'ds'] = fb_df[date_var]
                 fb_df.loc[:, 'y'] = fb_df[target_var]        
                 fb_df.loc[:, 'cap'] = np.max(fb_df[target_var].values)

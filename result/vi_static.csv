@@ -1,6 +1,5 @@
 ,정적공변량 변수중요도
-sku,0.12477622
-agency,0.32937154
-encoder_length,0.25662974
-volume_center,0.09933909
-volume_scale,0.1898834
+Store,0.31593663
+encoder_length,0.18628557
+Weekly_Sales_center,0.36775097
+Weekly_Sales_scale,0.13002686
