@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score, mean_squared_log_error
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score, mean_squared_log_error, mean_absolute_percentage_error
 import matplotlib.pyplot as plt
 import joblib
 import json
@@ -46,7 +46,11 @@ from . import hpo
 def mape(y_test, y_pred):
     return np.mean(np.abs((y_test - y_pred) / y_test)) * 100 
 
-
+def smape(y_test, y_pred):
+    v = 2 * np.abs(y_pred-y_test) / (np.abs(y_pred) + np.abs(y_test))
+    output = np.mean(v) * 100
+    return output
+        
 class Modeling:
     
     def __init__(self, log_name, df, target_var, date_var, store_list, unit, predict_n, HPO, model_type='auto'):
@@ -61,7 +65,9 @@ class Modeling:
         self.model_type = model_type
         self.model = dict()
         self.score = dict()
-        self.test = dict()
+        self.result_df = dict()
+        self.vi = dict()
+        
         
         self.logger = logging.getLogger(log_name)
         
@@ -71,15 +77,20 @@ class Modeling:
         self.score['MAE']     = dict() #mean_absolute_error(y_test, y_pred)
         self.score['MSE']     = dict() #mean_squared_error(y_test, y_pred)
         self.score['RMSE']    = dict() #np.sqrt(mean_squared_error(y_test, y_pred))
-        self.score['RMSLE']   = dict() #np.sqrt(mean_squared_log_error(y_test, y_pred))
         self.score['상관계수'] = dict() #r2_score(y_test, y_pred)
         self.score['정확성']   = dict() #1-MAPE
         
+        self.result_df['train_df'] = dict()
+        self.result_df['val_df'] = dict()
+        self.result_df['pred_df'] = dict()
+        
+        
+        
         #모델링 딕셔너리
-        model_type_dict = {'ari' : self.ari_process(),
-                           'ets' : self.ets_process(),
-                           'fb'  : self.fb_process(),
-                           'tft'  : self.tft_process()}
+        model_type_dict = {'ari' : self.ari_process()
+                           ,'ets' : self.ets_process()
+                           ,'fb'  : self.fb_process()
+                           ,'tft'  : self.tft_process()}
         
         self.best_model_name, self.best_model = self.get_best_model()
         
@@ -89,7 +100,7 @@ class Modeling:
         
         #2. 학습 결과 비교 화면
         #3. 변수 중요도와 시간 중요도
-        
+        self.test_score, self.valid_score, self.best_train_df, self.best_val_df, self.best_pred_df, self.vi_time, self.vi_static, self.vi_encoder =  self.get_eval(self.best_model_name)
     #################### ARI START####################
     
     def ari_process(self):
@@ -167,10 +178,12 @@ class Modeling:
         except:
                 self.logger.exception('arima 모델링 도중 문제가 발생하였습니다.')
                 
-                
-        train_df.to_csv('result/ari_train_df.csv', index=False)
-        val_df.to_csv('result/ari_val_df.csv', index=False)
-        pred_df.to_csv('result/ari_pred_df.csv', index=False)
+        self.result_df['train_df']['ari'] = train_df
+        self.result_df['val_df']['ari'] = val_df
+        self.result_df['pred_df']['ari'] = pred_df
+#         train_df.to_csv('result/ari_train_df.csv', index=False)
+#         val_df.to_csv('result/ari_val_df.csv', index=False)
+#         pred_df.to_csv('result/ari_pred_df.csv', index=False)
         
         
         #모델 평가
@@ -183,7 +196,6 @@ class Modeling:
         self.score['MAE']['ari']      = np.round(mean_absolute_error(y_test, y_pred), 3)
         self.score['MSE']['ari']      = np.round(mean_squared_error(y_test, y_pred), 3)
         self.score['RMSE']['ari']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
-        self.score['RMSLE']['ari']    = np.round(np.sqrt(mean_squared_log_error(y_test, y_pred)), 3)
         self.score['상관계수']['ari']  = np.round(r2_score(y_test, y_pred), 3)
         self.score['정확성']['ari']    = np.round(100-mape(y_test, y_pred), 3)
 
@@ -267,10 +279,10 @@ class Modeling:
                 
         except:
             self.logger.exception('ets 모델링 도중 문제가 발생하였습니다.')
-                
-        train_df.to_csv('result/ets_train_df.csv', index=False)
-        val_df.to_csv('result/ets_val_df.csv', index=False)
-        pred_df.to_csv('result/ets_pred_df.csv', index=False)
+                           
+        self.result_df['train_df']['ets'] = train_df
+        self.result_df['val_df']['ets'] = val_df
+        self.result_df['pred_df']['ets'] = pred_df        
         
         #모델 평가
         y_test = val_df[target_var].values
@@ -282,7 +294,6 @@ class Modeling:
         self.score['MAE']['ets']      = np.round(mean_absolute_error(y_test, y_pred), 3)
         self.score['MSE']['ets']      = np.round(mean_squared_error(y_test, y_pred), 3)
         self.score['RMSE']['ets']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
-        self.score['RMSLE']['ets']    = np.round(np.sqrt(mean_squared_log_error(y_test, y_pred)), 3)
         self.score['상관계수']['ets']  = np.round(r2_score(y_test, y_pred), 3)
         self.score['정확성']['ets']    = np.round(100-mape(y_test, y_pred), 3)
 
@@ -384,10 +395,13 @@ class Modeling:
         
         except:
                 self.logger.exception('fbprophet 모델링 도중 문제가 발생하였습니다.')
-                
-        train_df.to_csv('result/fb_train_df.csv', index=False)
-        val_df.to_csv('result/fb_val_df.csv', index=False)
-        pred_df.to_csv('result/fb_pred_df.csv', index=False)
+        
+        self.result_df['train_df']['fb'] = train_df
+        self.result_df['val_df']['fb'] = val_df
+        self.result_df['pred_df']['fb'] = pred_df 
+#         train_df.to_csv('result/fb_train_df.csv', index=False)
+#         val_df.to_csv('result/fb_val_df.csv', index=False)
+#         pred_df.to_csv('result/fb_pred_df.csv', index=False)
         
         y_test = val_df[target_var].values
         y_pred = val_df['pred'].values
@@ -398,7 +412,6 @@ class Modeling:
         self.score['MAE']['fb']      = np.round(mean_absolute_error(y_test, y_pred), 3)
         self.score['MSE']['fb']      = np.round(mean_squared_error(y_test, y_pred), 3)
         self.score['RMSE']['fb']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
-        self.score['RMSLE']['fb']    = np.round(np.sqrt(mean_squared_log_error(y_test, y_pred)), 3)
         self.score['상관계수']['fb']  = np.round(r2_score(y_test, y_pred), 3)
         self.score['정확성']['fb']    = np.round(100-mape(y_test, y_pred), 3)
   
@@ -408,8 +421,8 @@ class Modeling:
     
     #################### TFT START #################### 
     def tft_process(self):
-        if (self.model_type == 'tft') or (self.model_type == 'auto'): 
-            self.tft_fit_predict(self.df, self.target_var, self.date_var, self.store_list, self.unit, self.predict_n, self.HPO)
+        #if (self.model_type == 'tft') or (self.model_type == 'auto'): 
+        self.tft_fit_predict(self.df, self.target_var, self.date_var, self.store_list, self.unit, self.predict_n, self.HPO)
             
     
     def tft_fit_predict(self, df, target_var, date_var, store_list, unit, predict_n, HPO):
@@ -506,16 +519,21 @@ class Modeling:
             )
         except:
             self.logger.exception('tft learning rate 설정 도중 문제가 생겼습니다.')
-            
+         
         self.logger.info('tft 학습')
         try:
             # configure network and trainer
             early_stop_callback = EarlyStopping(monitor="val_loss", min_delta=1e-4, patience=10, verbose=False, mode="min")
             lr_logger = LearningRateMonitor()  # log the learning rate
             logger = TensorBoardLogger("lightning_logs")  # logging results to a tensorboard
-
+            
+            if (self.model_type == 'tft') or (self.model_type == 'auto'): 
+                n_epochs = 1
+            else:
+                n_epochs = 1
+                
             trainer = pl.Trainer(
-                max_epochs=3,
+                max_epochs=n_epochs,
                 gpus=0,
                 enable_model_summary=True,
                 gradient_clip_val=0.1,
@@ -624,10 +642,30 @@ class Modeling:
         
         except:
             self.logger.exception('예측 데이터 프레임 생성 도중 문제가 생겼습니다')
-            
-        train_df.to_csv('result/tft_train_df.csv', index=False)
-        val_df.to_csv('result/tft_val_df.csv', index=False)
-        pred_df.to_csv('result/tft_pred_df.csv', index=False)
+        
+        #변수 중요도!!
+        predictions_for_interpret, _ = best_tft.predict(val_dataloader, mode="raw", return_x=True)
+        interpretation = best_tft.interpret_output(predictions_for_interpret, reduction="sum")
+        time_variables = pd.DataFrame(interpretation['attention'].numpy(),
+                                      columns= ['Time index'],
+                                      index = [i-len(interpretation['attention']) for i in range(len(interpretation['attention']))])
+        static_variables = pd.DataFrame(interpretation['static_variables'].numpy()/interpretation['static_variables'].numpy().sum(), 
+                                        index = [best_tft.static_variables], 
+                                        columns=['정적공변량 변수중요도'])
+        encoder_variables = pd.DataFrame(interpretation['encoder_variables'].numpy()/interpretation['encoder_variables'].numpy().sum(),
+                                         index = [best_tft.encoder_variables], 
+                                         columns=['인코더 변수중요도'])
+        
+        self.vi['time'] = time_variables
+        self.vi['static'] = static_variables
+        self.vi['encoder'] = encoder_variables               
+                        
+        self.result_df['train_df']['tft'] = train_df
+        self.result_df['val_df']['tft'] = val_df
+        self.result_df['pred_df']['tft'] = pred_df 
+#         train_df.to_csv('result/tft_train_df.csv', index=False)
+#         val_df.to_csv('result/tft_val_df.csv', index=False)
+#         pred_df.to_csv('result/tft_pred_df.csv', index=False)
         
         y_test = val_df[target_var].values
         y_pred = val_df['pred'].values
@@ -638,7 +676,6 @@ class Modeling:
         self.score['MAE']['tft']      = np.round(mean_absolute_error(y_test, y_pred), 3)
         self.score['MSE']['tft']      = np.round(mean_squared_error(y_test, y_pred), 3)
         self.score['RMSE']['tft']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
-        self.score['RMSLE']['tft']    = np.round(np.sqrt(mean_squared_log_error(y_test, y_pred)), 3)
         self.score['상관계수']['tft']  = np.round(r2_score(y_test, y_pred), 3)
         self.score['정확성']['tft']    = np.round(100-mape(y_test, y_pred), 3)
      
@@ -653,7 +690,7 @@ class Modeling:
         try:
             best_model_name = min(self.score['MAE'], key=self.score['MAE'].get) 
             best_model = self.model[best_model_name]
-            #best_test = self.test[best_model_name]
+            
             
             
             self.logger.info(f'best_model_name: {best_model_name}')
@@ -709,3 +746,38 @@ class Modeling:
     
     #2. 학습 결과 비교 화면
     #3. 변수 중요도와 시간 중요도
+    def get_eval(self, best_model_name):
+                 
+        self.logger.info('best 모델 및 전체 모델 검증치 추출')
+        try:
+            test_score = pd.DataFrame({'MAPE'  : [self.score['MAPE'][best_model_name]],
+                                      'MAE'    : [self.score['MAE'][best_model_name]],     
+                                      'MSE'    : [self.score['MSE'][best_model_name]], 
+                                      'RMSE'   : [self.score['RMSE'][best_model_name]],
+                                      '상관계수': [self.score['상관계수'][best_model_name]],
+                                      '정확성'  : [self.score['정확성'][best_model_name]]
+                                      })
+                 
+            valid_score = pd.DataFrame(self.score)
+                 
+            
+            best_train_df = self.result_df['train_df'][best_model_name]
+            best_val_df = self.result_df['val_df'][best_model_name]
+            best_pred_df = self.result_df['pred_df'][best_model_name]
+            
+            best_train_df.to_csv('result/best_train_df.csv', index=False)
+            best_val_df.to_csv('result/best_val_df.csv', index=False)
+            best_pred_df.to_csv('result/best_pred_df.csv', index=False)
+            
+            vi_time = self.vi['time'] 
+            vi_static = self.vi['static'] 
+            vi_encoder = self.vi['encoder'] 
+            
+            vi_time.to_csv('result/vi_time.csv', index=False)
+            vi_static.to_csv('result/vi_static.csv', index=False)
+            vi_encoder.to_csv('result/vi_encoder.csv', index=False)
+         
+        except:
+            self.logger.exception('학습 결과를 위한 결과물 생성 실패했습니다')
+                                      
+        return test_score, valid_score, best_train_df, best_val_df, best_pred_df, vi_time, vi_static, vi_encoder   

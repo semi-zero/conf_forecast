@@ -1,25 +1,25 @@
-2023-03-15 17:43:10,877 automl_forecast main.py main set_logger INFO: logger 세팅
-2023-03-15 17:43:10,877 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
-2023-03-15 17:43:10,878 automl_forecast input_data.py input_data read_data INFO: storage/data/stallion.csv
-2023-03-15 17:43:10,927 automl_forecast input_data.py input_data read_data INFO: 변수 분리 시작
-2023-03-15 17:43:10,931 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 21000 행, 26열
-2023-03-15 17:43:10,931 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 4.17MB
-2023-03-15 17:43:10,951 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.91MB
-2023-03-15 17:43:10,951 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 78.2%
-2023-03-15 17:43:10,952 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리
-2023-03-15 17:43:10,952 automl_forecast preprocess.py preprocess na_preprocess ERROR: 결측치 처리에 문제가 발생하였습니다
+2023-03-16 10:52:38,488 automl_forecast main.py main set_logger INFO: logger 세팅
+2023-03-16 10:52:38,489 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
+2023-03-16 10:52:38,490 automl_forecast input_data.py input_data read_data INFO: storage/data/stallion.csv
+2023-03-16 10:52:38,529 automl_forecast input_data.py input_data read_data INFO: 변수 분리 시작
+2023-03-16 10:52:38,533 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 21000 행, 26열
+2023-03-16 10:52:38,534 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 4.17MB
+2023-03-16 10:52:38,553 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.91MB
+2023-03-16 10:52:38,553 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 78.2%
+2023-03-16 10:52:38,554 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리
+2023-03-16 10:52:38,554 automl_forecast preprocess.py preprocess na_preprocess ERROR: 결측치 처리에 문제가 발생하였습니다
 Traceback (most recent call last):
   File "C:\Users\dpapf\Desktop\automl_forecast\process\preprocess.py", line 53, in na_preprocess
     obj_data = df.loc[:, obj_var]
 NameError: name 'obj_var' is not defined
-2023-03-15 17:43:10,952 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 21000 행, 26열
-2023-03-15 17:43:10,953 automl_forecast preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
-2023-03-15 17:43:10,956 automl_forecast preprocess.py preprocess standardize INFO: 정규화 진행
-2023-03-15 17:43:11,021 automl_forecast preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
-2023-03-15 17:43:11,023 automl_forecast preprocess.py preprocess get_df INFO: 전처리 완료
-2023-03-15 17:43:11,023 automl_forecast preprocess.py preprocess get_df INFO: 
+2023-03-16 10:52:38,554 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 21000 행, 26열
+2023-03-16 10:52:38,555 automl_forecast preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
+2023-03-16 10:52:38,557 automl_forecast preprocess.py preprocess standardize INFO: 정규화 진행
+2023-03-16 10:52:38,614 automl_forecast preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
+2023-03-16 10:52:38,616 automl_forecast preprocess.py preprocess get_df INFO: 전처리 완료
+2023-03-16 10:52:38,616 automl_forecast preprocess.py preprocess get_df INFO: 
 
-2023-03-15 17:43:11,024 automl_forecast preprocess.py preprocess get_df INFO:    avg_max_temp  price_regular  price_actual  discount  discount_in_percent  \
+2023-03-16 10:52:38,617 automl_forecast preprocess.py preprocess get_df INFO:    avg_max_temp  price_regular  price_actual  discount  discount_in_percent  \
 0     -0.696963      -0.413455     -0.337471 -0.328691            -0.213089   
 1     -0.531769       0.586046      0.584706  0.218970             0.252862   
 2     -1.609464      -0.264188     -0.119687 -0.430163            -0.498605   
@@ -60,9 +60,9 @@ NameError: name 'obj_var' is not defined
 2   -0.301511   -1.638032  813.00000  2013-01-01  SKU_03  Agency_59  
 3   -0.301511   -1.588545  316.50000  2013-01-01  SKU_01  Agency_11  
 4   -0.301511   -1.509365  421.00000  2013-01-01  SKU_05  Agency_05  
-2023-03-15 17:43:11,039 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
-2023-03-15 17:43:12,453 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
-2023-03-15 17:43:12,454 automl_forecast preprocess.py preprocess ts_preprocess INFO:    avg_max_temp  price_regular  price_actual  discount  discount_in_percent  \
+2023-03-16 10:52:38,632 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
+2023-03-16 10:52:39,859 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
+2023-03-16 10:52:39,859 automl_forecast preprocess.py preprocess ts_preprocess INFO:    avg_max_temp  price_regular  price_actual  discount  discount_in_percent  \
 0     -0.696963      -0.413455     -0.337471 -0.328691            -0.213089   
 1      0.176207      -0.413455     -0.337471 -0.328205            -0.212274   
 2      0.203739      -0.360773     -0.281323 -0.318738            -0.217162   
@@ -110,16 +110,17 @@ NameError: name 'obj_var' is not defined
 2     3  
 3     4  
 4     5  
-2023-03-15 17:43:12,469 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 준비
-2023-03-15 17:43:12,470 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 전처리
-2023-03-15 17:43:12,489 automl_forecast modeling.py modeling tft_fit_predict INFO: tft dataloader 세팅
-2023-03-15 17:43:13,304 automl_forecast modeling.py modeling tft_fit_predict INFO: tft learning rate 설정
-2023-03-15 17:43:43,018 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 학습
-2023-03-15 17:44:22,499 automl_forecast modeling.py modeling tft_fit_predict INFO: 훈련, 검증 데이터 프레임 생성
-2023-03-15 17:44:22,821 automl_forecast modeling.py modeling tft_fit_predict INFO: 예측 데이터 프레임 생성
-2023-03-15 17:44:23,643 automl_forecast modeling.py modeling get_best_model INFO: Auto ML 가동
-2023-03-15 17:44:23,643 automl_forecast modeling.py modeling get_best_model INFO: automl_score:{'MAPE': {'tft': inf}, 'MAE': {'tft': 383.12}, 'MSE': {'tft': 866524.7}, 'RMSE': {'tft': 930.873}, 'RMSLE': {'tft': 0.821}, '상관계수': {'tft': 1.0}, '정확성': {'tft': -inf}}
-2023-03-15 17:44:23,643 automl_forecast modeling.py modeling get_best_model INFO: best_model_name: tft
-2023-03-15 17:44:23,643 automl_forecast modeling.py modeling get_best_model INFO: best 모델 저장
-2023-03-15 17:44:23,644 automl_forecast modeling.py modeling get_best_model INFO: lightning_logs\default\version_36\checkpoints\epoch=2-step=89.ckpt
-2023-03-15 17:44:23,645 automl_forecast modeling.py modeling make_report INFO: 학습 결과를 위한 결과물 생성
+2023-03-16 10:52:39,873 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 준비
+2023-03-16 10:52:39,874 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 전처리
+2023-03-16 10:52:39,889 automl_forecast modeling.py modeling tft_fit_predict INFO: tft dataloader 세팅
+2023-03-16 10:52:40,662 automl_forecast modeling.py modeling tft_fit_predict INFO: tft learning rate 설정
+2023-03-16 10:53:10,000 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 학습
+2023-03-16 10:53:24,274 automl_forecast modeling.py modeling tft_fit_predict INFO: 훈련, 검증 데이터 프레임 생성
+2023-03-16 10:53:24,627 automl_forecast modeling.py modeling tft_fit_predict INFO: 예측 데이터 프레임 생성
+2023-03-16 10:53:25,686 automl_forecast modeling.py modeling get_best_model INFO: Auto ML 가동
+2023-03-16 10:53:25,687 automl_forecast modeling.py modeling get_best_model INFO: automl_score:{'MAPE': {'tft': 55.183}, 'MAE': {'tft': 396.047}, 'MSE': {'tft': 966230.5}, 'RMSE': {'tft': 982.97}, '상관계수': {'tft': 1.0}, '정확성': {'tft': 44.817}}
+2023-03-16 10:53:25,687 automl_forecast modeling.py modeling get_best_model INFO: best_model_name: tft
+2023-03-16 10:53:25,687 automl_forecast modeling.py modeling get_best_model INFO: best 모델 저장
+2023-03-16 10:53:25,687 automl_forecast modeling.py modeling get_best_model INFO: lightning_logs\default\version_47\checkpoints\epoch=0-step=29.ckpt
+2023-03-16 10:53:25,689 automl_forecast modeling.py modeling make_report INFO: 학습 결과를 위한 결과물 생성
+2023-03-16 10:53:25,691 automl_forecast modeling.py modeling get_eval INFO: best 모델 및 전체 모델 검증치 추출
