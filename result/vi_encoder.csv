@@ -1,7 +1,7 @@
 ,인코더 변수중요도
-week,0.2184956
-time_idx,0.411305
-relative_time_idx,0.15659454
-Weekly_Sales,0.0866439
-log_Weekly_Sales,0.064255364
-avg_Weekly_Sales_by_Store,0.06270556
+week,0.09914364
+time_idx,0.578492
+relative_time_idx,0.08285585
+Weekly_Sales,0.16250633
+log_Weekly_Sales,0.038877625
+avg_Weekly_Sales_by_Store,0.0381246

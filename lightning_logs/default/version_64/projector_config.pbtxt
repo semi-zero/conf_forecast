@@ -1,0 +1,15 @@
+embeddings {
+  tensor_name: "str_cd:00090"
+  metadata_path: "00090/str_cd\\metadata.tsv"
+  tensor_path: "00090/str_cd\\tensors.tsv"
+}
+embeddings {
+  tensor_name: "prod_cd:00090"
+  metadata_path: "00090/prod_cd\\metadata.tsv"
+  tensor_path: "00090/prod_cd\\tensors.tsv"
+}
+embeddings {
+  tensor_name: "day:00090"
+  metadata_path: "00090/day\\metadata.tsv"
+  tensor_path: "00090/day\\tensors.tsv"
+}

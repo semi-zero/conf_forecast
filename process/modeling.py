@@ -9,6 +9,7 @@ import logging
 from datetime import timedelta
 import shutil
 import datetime
+import gc
 
 #ARIMA
 import statsmodels.api as sm
@@ -91,6 +92,12 @@ class Modeling:
                            ,'ets' : self.ets_process()
                            ,'fb'  : self.fb_process()
                            ,'tft'  : self.tft_process()}
+        
+        self.model_name = {'ari' : 'ARIMA',
+                          'ets': 'ETS',
+                          'fb': 'Prophet',
+                           'tft': 'TFT',
+                          'auto': 'AutoML'}
         
         self.best_model_name, self.best_model = self.get_best_model()
         
@@ -176,6 +183,8 @@ class Modeling:
                 test_df.loc[:, store_list[1]] = store_var_1
 
                 pred_df = pd.concat([pred_df, test_df], axis=0)
+                
+                gc.collect()
                 
         except:
                 self.logger.exception('arima 모델링 도중 문제가 발생하였습니다.')
@@ -285,6 +294,8 @@ class Modeling:
                 test_df.loc[:, store_list[1]] = store_var_1
 
                 pred_df = pd.concat([pred_df, test_df], axis=0)
+                
+                gc.collect()
                 
         except:
             self.logger.exception('ets 모델링 도중 문제가 발생하였습니다.')
@@ -412,6 +423,8 @@ class Modeling:
                 preds.loc[:, store_list[0]] = store_var_0
                 preds.loc[:, store_list[1]] = store_var_1
                 pred_df = pd.concat([pred_df, preds], axis=0)
+                
+                gc.collect()
         
         except:
                 self.logger.exception('fbprophet 모델링 도중 문제가 발생하였습니다.')
@@ -554,9 +567,9 @@ class Modeling:
             logger = TensorBoardLogger("lightning_logs")  # logging results to a tensorboard
             
             if (self.model_type == 'tft') or (self.model_type == 'auto'): 
-                n_epochs = 1
+                n_epochs = 3
             else:
-                n_epochs = 1
+                n_epochs = 30
                 
             trainer = pl.Trainer(
                 max_epochs=n_epochs,
@@ -596,6 +609,8 @@ class Modeling:
             #기존 저장소에서 파일 복사
             shutil.copyfile(best_model_path, tft_path)
             best_tft = TemporalFusionTransformer.load_from_checkpoint(tft_path)
+            
+            gc.collect()
         
         except:
             self.logger.exception('tft 학습 도중 문제가 생겼습니다')
@@ -761,7 +776,7 @@ class Modeling:
                                    '타겟 변수' : target_var,
                                    '날짜 변수' : date_var,
                                    '시간 단위' : unit,
-                                   '알고리즘' : model_type, 
+                                   '알고리즘' : self.model_name[model_type], 
                                    '목표' : '테이블 형식 시계열',
                                    '최적화 목표' : 'MAPE',
                                    'HPO 여부' : hpo})
@@ -779,7 +794,8 @@ class Modeling:
                  
         self.logger.info('best 모델 및 전체 모델 검증치 추출')
         try:
-            test_score = pd.DataFrame({'MAPE'  : [self.score['MAPE'][best_model_name]],
+            test_score = pd.DataFrame({'Best 모델': [self.model_name[best_model_name]],
+                                      'MAPE'  : [self.score['MAPE'][best_model_name]],
                                       'MAE'    : [self.score['MAE'][best_model_name]],     
                                       'MSE'    : [self.score['MSE'][best_model_name]], 
                                       'RMSE'   : [self.score['RMSE'][best_model_name]],
@@ -788,20 +804,24 @@ class Modeling:
                                       })
                  
             valid_score = pd.DataFrame(self.score)
-                 
+            valid_score.reset_index(inplace=True)
+            valid_score['index'] = valid_score['index'].apply(lambda x : self.model_name[x])
+            valid_score.rename(columns ={'index' : '학습 모델'}, inplace = True)
             
             best_train_df = self.result_df['train_df'][best_model_name]
             best_val_df = self.result_df['val_df'][best_model_name]
             best_pred_df = self.result_df['pred_df'][best_model_name]
             
-            best_train_df.to_csv('result/best_train_df.csv', index=False)
-            best_val_df.to_csv('result/best_val_df.csv', index=False)
-            best_pred_df.to_csv('result/best_pred_df.csv', index=False)
-            
             vi_time = self.vi['time']
             vi_static = self.vi['static']
             vi_encoder = self.vi['encoder']
             
+            #결과물 몰아보기
+            test_score.to_csv('result/test_score.csv', index=False)
+            valid_score.to_csv('result/valid_score.csv', index=False)
+            best_train_df.to_csv('result/best_train_df.csv', index=False)
+            best_val_df.to_csv('result/best_val_df.csv', index=False)
+            best_pred_df.to_csv('result/best_pred_df.csv', index=False)
             vi_time.to_csv('result/vi_time.csv')
             vi_static.to_csv('result/vi_static.csv')
             vi_encoder.to_csv('result/vi_encoder.csv')

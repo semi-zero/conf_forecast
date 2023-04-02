@@ -30,7 +30,7 @@ class Preprocessing:
         self.df[self.target_var] = self.df[self.target_var].apply(lambda x: x+1 if x == 0 else x)
         
         #결측치 처리 먼저 진행
-        self.df = self.na_preprocess(self.df, self._anomaly_ratio)
+        self.df = self.na_preprocess(self.df, self.num_var, self.obj_var, self._anomaly_ratio)
         
         self.df, self.tds_df = self.tds_preprocess(self.df, self.target_var, self.date_var, self.store_list)
         
@@ -48,18 +48,21 @@ class Preprocessing:
     
     
         # 결측치 확인 및 처리
-    def na_preprocess(self, df, anomaly_per):
+    def na_preprocess(self, df, num_var, obj_var, anomaly_per):
         
-        self.logger.info('결측치 처리')
+        self.logger.info('결측치 처리')        
         
         try:
             obj_data = df.loc[:, obj_var]
-            obj_data.fillna("NaN", inplace=True)
+            if np.sum(obj_data.isnull().sum()) != 0:
+                obj_data.fillna("NaN", inplace=True)
 
             num_data = df.loc[:, num_var] 
-            num_data.fillna(num_data.mean(), inplace=True)
+            if np.sum(num_data.isnull().sum()) != 0:
+                num_data.fillna(num_data.mean(), inplace=True)
 
             df = pd.concat([obj_data, num_data], axis=1)
+            
         except:
             self.logger.exception('결측치 처리에 문제가 발생하였습니다')
             

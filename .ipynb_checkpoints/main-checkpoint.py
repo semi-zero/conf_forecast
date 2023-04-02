@@ -6,7 +6,7 @@ import random
 import os
 import numpy as np
 from loggers import logger
-from process import input_data, preprocess, modeling
+from process import input_data, preprocess, modeling, check_reduce
 
 # 1. parser 객체 생성
 parser = argparse.ArgumentParser(description='Click & Select')
@@ -51,14 +51,15 @@ if __name__ == "__main__":
     log_name = 'automl_forecast'
     set_logger(log_name)
     data, var_list, num_var, obj_var = input_data.Data_load(args.PATH, log_name).read_data()
-    df = preprocess.Preprocessing(log_name, data, var_list, num_var, obj_var, target_var=args.target, date_var= args.date, store_list=args.store, unit=args.unit).df
-    mm = modeling.Modeling(log_name, df, target_var=args.target, date_var= args.date, store_list=args.store, unit=args.unit, predict_n = args.predict_n, model_type=args.model_type, HPO=args.HPO)
+    check = check_reduce.Data_check_reduce(log_name, data, args.target, args.date, args.store, args.predict_n).check
+    if check == True:
+        df = preprocess.Preprocessing(log_name, data, var_list, num_var, obj_var, target_var=args.target, date_var= args.date, store_list=args.store, unit=args.unit).df
+        mm = modeling.Modeling(log_name, df, target_var=args.target, date_var= args.date, store_list=args.store, unit=args.unit, predict_n = args.predict_n, model_type=args.model_type, HPO=args.HPO)
     
     
     # 입력 예시
-    # python main.py -pth storage/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7 -hpo -model_type auto
-    # python main.py -pth storage/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7 -model_type auto
-    # python main.py -pth storage/stallion.csv -target volume -date date -store sku agency -unit month -n 7 -hpo -model_type auto
-    # python main.py -pth storage/stallion.csv -target volume -date date -store sku agency -unit month -n 7 -model_type auto
-    # python main.py -pth storage/demand_forecast_dataset.csv -target sale_qty -date sale_dy -store str_cd prod_cd -unit day -n 7 -model_type auto
-    # python main.py -pth storage/demand_forecast_dataset.csv -target sale_qty -date sale_dy -store str_cd prod_cd -unit day -n 7 -hpo -model_type auto
+    # python main.py -pth storage/data/Walmart.csv -target Weekly_Sales -date Date -store Store -unit week -n 7 -hpo -model_type auto
+    # python main.py -pth storage/data/stallion.csv -target volume -date date -store sku agency -unit month -n 7 -hpo -model_type auto
+    # python main.py -pth storage/data/demand_forecast_dataset.csv -target sale_qty -date sale_dy -store str_cd prod_cd -unit day -n 7 -hpo -model_type auto
+    # python main.py -pth storage/data/demand_forecast_dataset.csv -target sale_qty -date sale_dy -store str_nm prod_nm -unit day -n 7 -hpo -model_type auto
+    
