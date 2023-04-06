@@ -1,8 +1,0 @@
-,인코더 변수중요도
-day,0.041498367
-time_idx,0.07808688
-relative_time_idx,0.026646473
-sale_qty,0.03799942
-log_sale_qty,0.07298223
-avg_sale_qty_by_str_cd,0.023687575
-avg_sale_qty_by_prod_cd,0.71909904

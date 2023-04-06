@@ -30,9 +30,9 @@ class Data_check_reduce:
             self.logger.info('타겟 변수에 결측치가 포함되어 있습니다')
             self.check = False
         
-        if min(self.df[self.store_list].value_counts()) != max(self.df[self.store_list].value_counts()) :
-            self.logger.info('시계열 식별 변수별 데이터의 개수가 다릅니다')
-            self.check = False
+        #if min(self.df[self.store_list].value_counts()) != max(self.df[self.store_list].value_counts()) :
+        #    self.logger.info('시계열 식별 변수별 데이터의 개수가 다릅니다')
+        #    self.check = False
         
         if min(self.df[self.store_list].value_counts()) <= (self.n * 4):
             self.logger.info('예측하고자 하는 기간의 수가 훈련 데이터에 비해 깁니다.')

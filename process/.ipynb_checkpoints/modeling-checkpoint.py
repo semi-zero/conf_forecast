@@ -569,7 +569,7 @@ class Modeling:
             if (self.model_type == 'tft') or (self.model_type == 'auto'): 
                 n_epochs = 3
             else:
-                n_epochs = 30
+                n_epochs = 3
                 
             trainer = pl.Trainer(
                 max_epochs=n_epochs,
@@ -701,6 +701,10 @@ class Modeling:
         self.vi['time'] = time_variables
         self.vi['static'] = static_variables
         self.vi['encoder'] = encoder_variables         
+        
+        train_df.to_csv('tft_train_df.csv')
+        val_df.to_csv('tft_val_df.csv')
+        pred_df.to_csv('tft_pred_df.csv')
         
         if (self.model_type == 'tft') or (self.model_type == 'auto'):   
             train_df.reset_index(drop=True, inplace=True)

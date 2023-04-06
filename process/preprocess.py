@@ -27,7 +27,7 @@ class Preprocessing:
         self.logger = logging.getLogger(log_name)
         
         #0이 오류를 발생시키므로 
-        self.df[self.target_var] = self.df[self.target_var].apply(lambda x: x+1 if x == 0 else x)
+        self.df[self.target_var] = self.df[self.target_var].apply(lambda x: 5.0 if x <=5 else x)
         
         #결측치 처리 먼저 진행
         self.df = self.na_preprocess(self.df, self.num_var, self.obj_var, self._anomaly_ratio)

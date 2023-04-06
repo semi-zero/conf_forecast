@@ -62,4 +62,5 @@ if __name__ == "__main__":
     # python main.py -pth storage/data/stallion.csv -target volume -date date -store sku agency -unit month -n 7 -hpo -model_type auto
     # python main.py -pth storage/data/demand_forecast_dataset.csv -target sale_qty -date sale_dy -store str_cd prod_cd -unit day -n 7 -hpo -model_type auto
     # python main.py -pth storage/data/demand_forecast_dataset.csv -target sale_qty -date sale_dy -store str_nm prod_nm -unit day -n 7 -hpo -model_type auto
-    
+    # python main.py -pth storage/data/snop_prep_df_230312.csv -target qty -date yymmdd -store SP1 브랜드 -unit week -n 7 -model_type auto
+   
