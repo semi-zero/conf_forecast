@@ -1,0 +1,15 @@
+embeddings {
+  tensor_name: "SP1:00450"
+  metadata_path: "00450/SP1\\metadata.tsv"
+  tensor_path: "00450/SP1\\tensors.tsv"
+}
+embeddings {
+  tensor_name: "\353\270\214\353\236\234\353\223\234:00450"
+  metadata_path: "00450/\353\270\214\353\236\234\353\223\234\\metadata.tsv"
+  tensor_path: "00450/\353\270\214\353\236\234\353\223\234\\tensors.tsv"
+}
+embeddings {
+  tensor_name: "week:00450"
+  metadata_path: "00450/week\\metadata.tsv"
+  tensor_path: "00450/week\\tensors.tsv"
+}

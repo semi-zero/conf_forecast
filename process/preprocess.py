@@ -26,8 +26,7 @@ class Preprocessing:
         
         self.logger = logging.getLogger(log_name)
         
-        #0이 오류를 발생시키므로 
-        self.df[self.target_var] = self.df[self.target_var].apply(lambda x: 5.0 if x <=5 else x)
+       
         
         #결측치 처리 먼저 진행
         self.df = self.na_preprocess(self.df, self.num_var, self.obj_var, self._anomaly_ratio)
@@ -207,6 +206,11 @@ class Preprocessing:
                 df[unit] = df[date_var].dt.isocalendar().week.astype(str).astype("category")  # categories have be strings
             elif unit == 'month':
                 df[unit] = df[date_var].dt.month.astype(str).astype("category")  # categories have be strings
+            
+            
+             #0이 오류를 발생시키므로 
+            df['mean_target'] = df.groupby(store_list)[target_var].transform(np.mean)
+            df[target_var] = df.apply(lambda x: x['mean_target'] if x[target_var] <= 5 else x[target_var], axis=1)
             
             self.logger.info('시계열 전처리 후 df')
             self.logger.info(df.head())

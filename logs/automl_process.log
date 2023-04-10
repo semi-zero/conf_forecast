@@ -1,44 +1,66 @@
-2023-04-06 14:35:57,141 practice_tft 2659849918.py 2659849918 set_logger INFO: logger 세팅
-2023-04-06 14:35:57,144 practice_tft input_data.py input_data read_data INFO: csv 데이터 불러오기
-2023-04-06 14:35:57,145 practice_tft input_data.py input_data read_data INFO: storage/data/snop_prep_df_230312.csv
-2023-04-06 14:35:57,201 practice_tft input_data.py input_data read_data INFO: 변수 분리 시작
-2023-04-06 14:35:57,206 practice_tft input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 20674 행, 11열
-2023-04-06 14:35:57,207 practice_tft input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 1.74MB
-2023-04-06 14:35:57,227 practice_tft input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.34MB
-2023-04-06 14:35:57,229 practice_tft input_data.py input_data reduce_mem_usage INFO: Decreased by 80.2%
-2023-04-06 14:35:57,239 practice_tft preprocess.py preprocess na_preprocess INFO: 결측치 처리
-2023-04-06 14:35:57,247 practice_tft preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 20674 행, 11열
-2023-04-06 14:35:57,249 practice_tft preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
-2023-04-06 14:35:57,252 practice_tft preprocess.py preprocess standardize INFO: 정규화 진행
-2023-04-06 14:35:57,341 practice_tft preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
-2023-04-06 14:35:57,354 practice_tft preprocess.py preprocess get_df INFO: 전처리 완료
-2023-04-06 14:35:57,355 practice_tft preprocess.py preprocess get_df INFO: 
+2023-04-10 14:59:08,442 automl_forecast main.py main set_logger INFO: logger 세팅
+2023-04-10 14:59:08,443 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
+2023-04-10 14:59:08,443 automl_forecast input_data.py input_data read_data INFO: storage/data/snop_prep_df_230312.csv
+2023-04-10 14:59:08,508 automl_forecast input_data.py input_data read_data INFO: 변수 분리 시작
+2023-04-10 14:59:08,511 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 20674 행, 11열
+2023-04-10 14:59:08,512 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 1.74MB
+2023-04-10 14:59:08,530 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.34MB
+2023-04-10 14:59:08,530 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 80.2%
+2023-04-10 14:59:08,531 automl_forecast check_reduce.py check_reduce data_check INFO: 데이터 정합성 확인 절차 시작
+2023-04-10 14:59:08,547 automl_forecast check_reduce.py check_reduce data_check INFO: 데이터 정합성 확인 절차 종료
+2023-04-10 14:59:08,547 automl_forecast check_reduce.py check_reduce data_check INFO: 데이터 정합성 확인 절차 결과 : True
+2023-04-10 14:59:08,547 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리
+2023-04-10 14:59:08,554 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 20674 행, 11열
+2023-04-10 14:59:08,554 automl_forecast preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
+2023-04-10 14:59:08,556 automl_forecast preprocess.py preprocess standardize INFO: 정규화 진행
+2023-04-10 14:59:08,704 automl_forecast preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
+2023-04-10 14:59:08,732 automl_forecast preprocess.py preprocess get_df INFO: 전처리 완료
+2023-04-10 14:59:08,732 automl_forecast preprocess.py preprocess get_df INFO: 
 
-2023-04-06 14:35:57,356 practice_tft preprocess.py preprocess get_df INFO:    biz_cd  line_cd  brand_cd   rhm_avg   gsr_sum  discount  cust_grp_cd  \
+2023-04-10 14:59:08,732 automl_forecast preprocess.py preprocess get_df INFO:    biz_cd  line_cd  brand_cd   rhm_avg   gsr_sum  discount  cust_grp_cd  \
 0       0        2        11 -0.465971  0.566105  0.140066     0.711465   
 1       0        2        11 -0.675800  0.723852  0.350474     0.711465   
 2       0        2        11 -0.767198  1.109205  0.245270     0.711465   
 3       0        2        11 -0.588264  1.309768  0.034862     0.711465   
 4       0        2        11 -0.467259  1.023571  0.034862     0.711465   
 
-         qty      yymmdd    SP1 브랜드  
-0  13.281250  2020-03-22  종로영업소  칸쵸  
-1  15.257812  2020-03-29  종로영업소  칸쵸  
-2  29.671875  2020-04-05  종로영업소  칸쵸  
-3  28.859375  2020-04-12  종로영업소  칸쵸  
-4  65.750000  2020-04-19  종로영업소  칸쵸  
-2023-04-06 14:35:57,367 practice_tft preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
-2023-04-06 14:35:58,148 practice_tft preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
-2023-04-06 14:35:58,150 practice_tft preprocess.py preprocess ts_preprocess INFO:    biz_cd  line_cd  brand_cd   rhm_avg   gsr_sum  discount  cust_grp_cd  \
+         qty     yymmdd    SP1 브랜드  
+0  13.281250 2020-03-22  종로영업소  칸쵸  
+1  15.257812 2020-03-29  종로영업소  칸쵸  
+2  29.671875 2020-04-05  종로영업소  칸쵸  
+3  28.859375 2020-04-12  종로영업소  칸쵸  
+4  65.750000 2020-04-19  종로영업소  칸쵸  
+2023-04-10 14:59:08,746 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
+2023-04-10 14:59:10,106 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
+2023-04-10 14:59:10,107 automl_forecast preprocess.py preprocess ts_preprocess INFO:    biz_cd  line_cd  brand_cd   rhm_avg   gsr_sum  discount  cust_grp_cd  \
 0       0        2        11 -0.465971  0.566105  0.140066     0.711465   
 1       0        2        11 -0.675800  0.723852  0.350474     0.711465   
 2       0        2        11 -0.767198  1.109205  0.245270     0.711465   
 3       0        2        11 -0.588264  1.309768  0.034862     0.711465   
 4       0        2        11 -0.467259  1.023571  0.034862     0.711465   
 
-         qty     yymmdd    SP1 브랜드  time_idx week  
-0  13.281250 2020-03-22  종로영업소  칸쵸         0   12  
-1  15.257812 2020-03-29  종로영업소  칸쵸         1   13  
-2  29.671875 2020-04-05  종로영업소  칸쵸         2   14  
-3  28.859375 2020-04-12  종로영업소  칸쵸         3   15  
-4  65.750000 2020-04-19  종로영업소  칸쵸         4   16  
+         qty     yymmdd    SP1 브랜드  time_idx week  mean_target  
+0  13.281250 2020-03-22  종로영업소  칸쵸         0   12    83.032349  
+1  15.257812 2020-03-29  종로영업소  칸쵸         1   13    83.032349  
+2  29.671875 2020-04-05  종로영업소  칸쵸         2   14    83.032349  
+3  28.859375 2020-04-12  종로영업소  칸쵸         3   15    83.032349  
+4  65.750000 2020-04-19  종로영업소  칸쵸         4   16    83.032349  
+2023-04-10 14:59:10,122 automl_forecast modeling.py modeling ari_fit_predict INFO: arima 데이터 준비
+2023-04-10 14:59:10,123 automl_forecast modeling.py modeling ari_fit_predict INFO: arima 모델링 시작
+2023-04-10 15:02:29,681 automl_forecast modeling.py modeling ets_fit_predict INFO: ets 데이터 준비
+2023-04-10 15:02:58,688 automl_forecast modeling.py modeling fb_fit_predict INFO: fbprophet 데이터 준비
+2023-04-10 15:02:58,689 automl_forecast modeling.py modeling fb_fit_predict INFO: fbprophet 모델링 시작
+2023-04-10 15:07:39,173 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 준비
+2023-04-10 15:07:39,173 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 전처리
+2023-04-10 15:07:39,193 automl_forecast modeling.py modeling tft_fit_predict INFO: tft dataloader 세팅
+2023-04-10 15:07:39,929 automl_forecast modeling.py modeling tft_fit_predict INFO: tft learning rate 설정
+2023-04-10 15:08:07,122 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 학습
+2023-04-10 15:10:13,707 automl_forecast modeling.py modeling tft_fit_predict INFO: 훈련, 검증 데이터 프레임 생성
+2023-04-10 15:10:13,912 automl_forecast modeling.py modeling tft_fit_predict INFO: 예측 데이터 프레임 생성
+2023-04-10 15:10:14,402 automl_forecast modeling.py modeling get_best_model INFO: Auto ML 가동
+2023-04-10 15:10:14,402 automl_forecast modeling.py modeling get_best_model INFO: automl_score:{'MAPE': {'ari': 0.968, 'ets': 11.192, 'fb': 9.191, 'tft': 0.952}, 'MAE': {'ari': 63.9, 'ets': 555.308, 'fb': 177.935, 'tft': 70.515}, 'MSE': {'ari': 14475.104, 'ets': 6261555.032, 'fb': 1144492.113, 'tft': 16807.308}, 'RMSE': {'ari': 120.313, 'ets': 2502.31, 'fb': 1069.809, 'tft': 129.643}, '상관계수': {'ari': 0.66, 'ets': -146.279, 'fb': -25.92, 'tft': 0.605}, '정확성': {'ari': 0.032, 'ets': -10.192, 'fb': -8.191, 'tft': 0.048}, '근사치': {'ari': 97.96, 'ets': 71.297, 'fb': 113.132, 'tft': 118.84}}
+2023-04-10 15:10:14,403 automl_forecast modeling.py modeling get_best_model INFO: best_model_name: ari
+2023-04-10 15:10:14,403 automl_forecast modeling.py modeling get_best_model INFO: best 모델 저장
+2023-04-10 15:10:14,403 automl_forecast modeling.py modeling get_best_model INFO:  ARIMA(0,1,1)(0,0,0)[0]          
+2023-04-10 15:10:14,444 automl_forecast modeling.py modeling make_report INFO: 학습 결과를 위한 결과물 생성
+2023-04-10 15:10:14,447 automl_forecast modeling.py modeling get_eval INFO: best 모델 및 전체 모델 검증치 추출

@@ -44,13 +44,15 @@ tf.io.gfile = tb.compat.tensorflow_stub.io.gfile
 
 from . import hpo
 
+#근사치
 def mape(y_test, y_pred):
-    return np.mean(np.abs((y_test - y_pred) / y_test)) * 100 
+    return np.mean(y_test  / y_pred) * 100 
 
 def smape(y_test, y_pred):
     v = 2 * np.abs(y_pred-y_test) / (np.abs(y_pred) + np.abs(y_test))
     output = np.mean(v) * 100
     return output
+
         
 class Modeling:
     
@@ -80,6 +82,7 @@ class Modeling:
         self.score['RMSE']    = dict() #np.sqrt(mean_squared_error(y_test, y_pred))
         self.score['상관계수'] = dict() #r2_score(y_test, y_pred)
         self.score['정확성']   = dict() #1-MAPE
+        self.score['근사치']   = dict()
         
         self.result_df['train_df'] = dict()
         self.result_df['val_df'] = dict()
@@ -209,12 +212,13 @@ class Modeling:
         
         self.model['ari'] = ari
         
-        self.score['MAPE']['ari']     = np.round(mape(y_test, y_pred), 3)
+        self.score['MAPE']['ari']     = np.round(mean_absolute_percentage_error(y_test, y_pred), 3)
         self.score['MAE']['ari']      = np.round(mean_absolute_error(y_test, y_pred), 3)
         self.score['MSE']['ari']      = np.round(mean_squared_error(y_test, y_pred), 3)
         self.score['RMSE']['ari']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
         self.score['상관계수']['ari']  = np.round(r2_score(y_test, y_pred), 3)
-        self.score['정확성']['ari']    = np.round(100-mape(y_test, y_pred), 3)
+        self.score['정확성']['ari']    = np.round(1-mean_absolute_percentage_error(y_test, y_pred), 3)
+        self.score['근사치']['ari']    = np.round(mape(y_test, y_pred), 3)
 
         
 
@@ -320,12 +324,13 @@ class Modeling:
         
         self.model['ets'] = ets
         
-        self.score['MAPE']['ets']     = np.round(mape(y_test, y_pred), 3)
+        self.score['MAPE']['ets']     = np.round(mean_absolute_percentage_error(y_test, y_pred), 3)
         self.score['MAE']['ets']      = np.round(mean_absolute_error(y_test, y_pred), 3)
         self.score['MSE']['ets']      = np.round(mean_squared_error(y_test, y_pred), 3)
         self.score['RMSE']['ets']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
         self.score['상관계수']['ets']  = np.round(r2_score(y_test, y_pred), 3)
-        self.score['정확성']['ets']    = np.round(100-mape(y_test, y_pred), 3)
+        self.score['정확성']['ets']    = np.round(1-mean_absolute_percentage_error(y_test, y_pred), 3)
+        self.score['근사치']['ets']    = np.round(mape(y_test, y_pred), 3)
 
         
 
@@ -447,12 +452,13 @@ class Modeling:
         
         self.model['fb'] = fb
         
-        self.score['MAPE']['fb']     = np.round(mape(y_test, y_pred), 3)
+        self.score['MAPE']['fb']     = np.round(mean_absolute_percentage_error(y_test, y_pred), 3)
         self.score['MAE']['fb']      = np.round(mean_absolute_error(y_test, y_pred), 3)
         self.score['MSE']['fb']      = np.round(mean_squared_error(y_test, y_pred), 3)
         self.score['RMSE']['fb']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
         self.score['상관계수']['fb']  = np.round(r2_score(y_test, y_pred), 3)
-        self.score['정확성']['fb']    = np.round(100-mape(y_test, y_pred), 3)
+        self.score['정확성']['fb']    = np.round(1-mean_absolute_percentage_error(y_test, y_pred), 3)
+        self.score['근사치']['fb']    = np.round(mape(y_test, y_pred), 3)
   
 
 
@@ -476,18 +482,19 @@ class Modeling:
 
             max_prediction_length = predict_n
             max_encoder_length = predict_n * 4
-            training_cutoff = df['time_idx'].max() - max_prediction_length
+            #training_cutoff = df['time_idx'].max() - max_prediction_length
 
             #매우 중요
             df.sort_values(store_list+[date_var], inplace=True)
-        
+            df['max_time_idx'] = df.groupby(store_list)['time_idx'].transform(max)
+            
         except:
             self.logger.exception('tft 데이터 전처리 도중 문제가 발생하였습니다.')
                 
         self.logger.info('tft dataloader 세팅')
         try:
             training = TimeSeriesDataSet(
-                df[lambda x: x.time_idx <= training_cutoff],
+                df[lambda x: x.time_idx <=  (x.max_time_idx - max_prediction_length)],
                 time_idx="time_idx",
                 target=target_var,
                 group_ids=store_list,
@@ -567,7 +574,7 @@ class Modeling:
             logger = TensorBoardLogger("lightning_logs")  # logging results to a tensorboard
             
             if (self.model_type == 'tft') or (self.model_type == 'auto'): 
-                n_epochs = 3
+                n_epochs = 10
             else:
                 n_epochs = 3
                 
@@ -619,10 +626,10 @@ class Modeling:
         
         try: 
             
-            train_df = df[lambda x: x.time_idx <= x.time_idx.max() - max_prediction_length]
+            train_df = df[lambda x: x.time_idx <= (x.max_time_idx - max_prediction_length)]
             train_df = train_df[[date_var, target_var] + store_list].reset_index(drop=True)
             
-            val_df = df[lambda x: x.time_idx > x.time_idx.max() - max_prediction_length]
+            val_df = df[lambda x: x.time_idx > (x.max_time_idx - max_prediction_length)]
             val_df = val_df[[date_var, target_var] + store_list].reset_index(drop=True)
             val_predictions = best_tft.predict(val_dataloader, mode="prediction", return_x=False)
             val_predictions = pd.DataFrame(val_predictions.reshape(-1,1).numpy(), columns=['pred'])
@@ -636,12 +643,12 @@ class Modeling:
         try:
             
             # select last 24 months from data (max_encoder_length is 24)
-            encoder_data = df[lambda x: x.time_idx > x.time_idx.max() - max_encoder_length]
+            encoder_data = df[lambda x: x.time_idx > (x.max_time_idx - max_encoder_length)]
 
             # select last known data point and create decoder data from it by repeating it and incrementing the month
             # in a real world dataset, we should not just forward fill the covariates but specify them to account
             # for changes in special days and prices (which you absolutely should do but we are too lazy here)
-            last_data = df[lambda x: x.time_idx == x.time_idx.max()]
+            last_data = df[lambda x: x.time_idx == x.max_time_idx]
 
             if unit == 'day':
                 decoder_data = pd.concat(
@@ -702,9 +709,7 @@ class Modeling:
         self.vi['static'] = static_variables
         self.vi['encoder'] = encoder_variables         
         
-        train_df.to_csv('tft_train_df.csv')
-        val_df.to_csv('tft_val_df.csv')
-        pred_df.to_csv('tft_pred_df.csv')
+        
         
         if (self.model_type == 'tft') or (self.model_type == 'auto'):   
             train_df.reset_index(drop=True, inplace=True)
@@ -720,12 +725,13 @@ class Modeling:
 
             self.model['tft'] = best_model_path
 
-            self.score['MAPE']['tft']     = np.round(mape(y_test, y_pred), 3)
+            self.score['MAPE']['tft']     = np.round(mean_absolute_percentage_error(y_test, y_pred), 3)
             self.score['MAE']['tft']      = np.round(mean_absolute_error(y_test, y_pred), 3)
             self.score['MSE']['tft']      = np.round(mean_squared_error(y_test, y_pred), 3)
             self.score['RMSE']['tft']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
             self.score['상관계수']['tft']  = np.round(r2_score(y_test, y_pred), 3)
-            self.score['정확성']['tft']    = np.round(100-mape(y_test, y_pred), 3)
+            self.score['정확성']['tft']    = np.round(1-mean_absolute_percentage_error(y_test, y_pred), 3)
+            self.score['근사치']['tft']    = np.round(mape(y_test, y_pred), 3)
 
 
     #################### TFT FINISH #################### 
@@ -804,7 +810,8 @@ class Modeling:
                                       'MSE'    : [self.score['MSE'][best_model_name]], 
                                       'RMSE'   : [self.score['RMSE'][best_model_name]],
                                       '상관계수': [self.score['상관계수'][best_model_name]],
-                                      '정확성'  : [self.score['정확성'][best_model_name]]
+                                      '정확성'  : [self.score['정확성'][best_model_name]],
+                                       '근사치' : [self.score['근사치'][best_model_name]]
                                       })
                  
             valid_score = pd.DataFrame(self.score)
@@ -820,7 +827,7 @@ class Modeling:
             vi_static = self.vi['static']
             vi_encoder = self.vi['encoder']
             
-            #결과물 몰아보기
+            #결과물 몰아서 내보내기
             test_score.to_csv('result/test_score.csv', index=False)
             valid_score.to_csv('result/valid_score.csv', index=False)
             best_train_df.to_csv('result/best_train_df.csv', index=False)
