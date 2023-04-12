@@ -31,12 +31,12 @@ class HyperOptimization:
     def fb_objective(self, trial):
         params = {
         'changepoint_prior_scale': trial.suggest_float('changepoint_prior_scale', 0.005, 5),
-        'changepoint_range': trial.suggest_float('changepoint_range', 0.8, 0.9),
-        'seasonality_prior_scale': trial.suggest_float('seasonality_prior_scale', 0.1, 10),
-        'holidays_prior_scale': trial.suggest_float('holidays_prior_scale', 0.1, 10),
-        'seasonality_mode': trial.suggest_categorical('seasonality_mode', ['multiplicative', 'additive']),
-        'weekly_seasonality': trial.suggest_int('weekly_seasonality', 5, 10),
-        'yearly_seasonality': trial.suggest_int('yearly_seasonality', 1, 20)
+        'changepoint_range': trial.suggest_float('changepoint_range', 0.8, 0.9)
+        #'seasonality_prior_scale': trial.suggest_float('seasonality_prior_scale', 0.1, 10),
+        #'holidays_prior_scale': trial.suggest_float('holidays_prior_scale', 0.1, 10),
+        #'seasonality_mode': trial.suggest_categorical('seasonality_mode', ['multiplicative', 'additive']),
+        #'weekly_seasonality': trial.suggest_int('weekly_seasonality', 5, 10),
+        #'yearly_seasonality': trial.suggest_int('yearly_seasonality', 1, 20)
         }
 
         fb = Prophet(**params)

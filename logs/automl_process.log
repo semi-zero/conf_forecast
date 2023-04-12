@@ -1,23 +1,23 @@
-2023-04-10 14:59:08,442 automl_forecast main.py main set_logger INFO: logger 세팅
-2023-04-10 14:59:08,443 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
-2023-04-10 14:59:08,443 automl_forecast input_data.py input_data read_data INFO: storage/data/snop_prep_df_230312.csv
-2023-04-10 14:59:08,508 automl_forecast input_data.py input_data read_data INFO: 변수 분리 시작
-2023-04-10 14:59:08,511 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 20674 행, 11열
-2023-04-10 14:59:08,512 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 1.74MB
-2023-04-10 14:59:08,530 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.34MB
-2023-04-10 14:59:08,530 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 80.2%
-2023-04-10 14:59:08,531 automl_forecast check_reduce.py check_reduce data_check INFO: 데이터 정합성 확인 절차 시작
-2023-04-10 14:59:08,547 automl_forecast check_reduce.py check_reduce data_check INFO: 데이터 정합성 확인 절차 종료
-2023-04-10 14:59:08,547 automl_forecast check_reduce.py check_reduce data_check INFO: 데이터 정합성 확인 절차 결과 : True
-2023-04-10 14:59:08,547 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리
-2023-04-10 14:59:08,554 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 20674 행, 11열
-2023-04-10 14:59:08,554 automl_forecast preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
-2023-04-10 14:59:08,556 automl_forecast preprocess.py preprocess standardize INFO: 정규화 진행
-2023-04-10 14:59:08,704 automl_forecast preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
-2023-04-10 14:59:08,732 automl_forecast preprocess.py preprocess get_df INFO: 전처리 완료
-2023-04-10 14:59:08,732 automl_forecast preprocess.py preprocess get_df INFO: 
+2023-04-12 15:02:41,664 automl_forecast main.py main set_logger INFO: logger 세팅
+2023-04-12 15:02:41,664 automl_forecast input_data.py input_data read_data INFO: csv 데이터 불러오기
+2023-04-12 15:02:41,664 automl_forecast input_data.py input_data read_data INFO: storage/data/snop_prep_df_230312.csv
+2023-04-12 15:02:41,709 automl_forecast input_data.py input_data read_data INFO: 변수 분리 시작
+2023-04-12 15:02:41,713 automl_forecast input_data.py input_data reduce_mem_usage INFO: 데이터 구성: 20674 행, 11열
+2023-04-12 15:02:41,713 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage of dataframe is 1.74MB
+2023-04-12 15:02:41,731 automl_forecast input_data.py input_data reduce_mem_usage INFO: Memory usage after optimization is: 0.34MB
+2023-04-12 15:02:41,731 automl_forecast input_data.py input_data reduce_mem_usage INFO: Decreased by 80.2%
+2023-04-12 15:02:41,732 automl_forecast check_reduce.py check_reduce data_check INFO: 데이터 정합성 확인 절차 시작
+2023-04-12 15:02:41,740 automl_forecast check_reduce.py check_reduce data_check INFO: 데이터 정합성 확인 절차 종료
+2023-04-12 15:02:41,740 automl_forecast check_reduce.py check_reduce data_check INFO: 데이터 정합성 확인 절차 결과 : True
+2023-04-12 15:02:41,741 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리
+2023-04-12 15:02:41,746 automl_forecast preprocess.py preprocess na_preprocess INFO: 결측치 처리 이후 데이터 구성: 20674 행, 11열
+2023-04-12 15:02:41,746 automl_forecast preprocess.py preprocess tds_preprocess INFO: 전처리를 위한 target, date, store 분리
+2023-04-12 15:02:41,748 automl_forecast preprocess.py preprocess standardize INFO: 정규화 진행
+2023-04-12 15:02:41,860 automl_forecast preprocess.py preprocess label_encoder INFO: 라벨 인코딩 진행
+2023-04-12 15:02:41,879 automl_forecast preprocess.py preprocess get_df INFO: 전처리 완료
+2023-04-12 15:02:41,879 automl_forecast preprocess.py preprocess get_df INFO: 
 
-2023-04-10 14:59:08,732 automl_forecast preprocess.py preprocess get_df INFO:    biz_cd  line_cd  brand_cd   rhm_avg   gsr_sum  discount  cust_grp_cd  \
+2023-04-12 15:02:41,879 automl_forecast preprocess.py preprocess get_df INFO:    biz_cd  line_cd  brand_cd   rhm_avg   gsr_sum  discount  cust_grp_cd  \
 0       0        2        11 -0.465971  0.566105  0.140066     0.711465   
 1       0        2        11 -0.675800  0.723852  0.350474     0.711465   
 2       0        2        11 -0.767198  1.109205  0.245270     0.711465   
@@ -30,9 +30,9 @@
 2  29.671875 2020-04-05  종로영업소  칸쵸  
 3  28.859375 2020-04-12  종로영업소  칸쵸  
 4  65.750000 2020-04-19  종로영업소  칸쵸  
-2023-04-10 14:59:08,746 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
-2023-04-10 14:59:10,106 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
-2023-04-10 14:59:10,107 automl_forecast preprocess.py preprocess ts_preprocess INFO:    biz_cd  line_cd  brand_cd   rhm_avg   gsr_sum  discount  cust_grp_cd  \
+2023-04-12 15:02:41,891 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열용 전처리 진행
+2023-04-12 15:02:43,149 automl_forecast preprocess.py preprocess ts_preprocess INFO: 시계열 전처리 후 df
+2023-04-12 15:02:43,150 automl_forecast preprocess.py preprocess ts_preprocess INFO:    biz_cd  line_cd  brand_cd   rhm_avg   gsr_sum  discount  cust_grp_cd  \
 0       0        2        11 -0.465971  0.566105  0.140066     0.711465   
 1       0        2        11 -0.675800  0.723852  0.350474     0.711465   
 2       0        2        11 -0.767198  1.109205  0.245270     0.711465   
@@ -45,22 +45,307 @@
 2  29.671875 2020-04-05  종로영업소  칸쵸         2   14    83.032349  
 3  28.859375 2020-04-12  종로영업소  칸쵸         3   15    83.032349  
 4  65.750000 2020-04-19  종로영업소  칸쵸         4   16    83.032349  
-2023-04-10 14:59:10,122 automl_forecast modeling.py modeling ari_fit_predict INFO: arima 데이터 준비
-2023-04-10 14:59:10,123 automl_forecast modeling.py modeling ari_fit_predict INFO: arima 모델링 시작
-2023-04-10 15:02:29,681 automl_forecast modeling.py modeling ets_fit_predict INFO: ets 데이터 준비
-2023-04-10 15:02:58,688 automl_forecast modeling.py modeling fb_fit_predict INFO: fbprophet 데이터 준비
-2023-04-10 15:02:58,689 automl_forecast modeling.py modeling fb_fit_predict INFO: fbprophet 모델링 시작
-2023-04-10 15:07:39,173 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 준비
-2023-04-10 15:07:39,173 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 전처리
-2023-04-10 15:07:39,193 automl_forecast modeling.py modeling tft_fit_predict INFO: tft dataloader 세팅
-2023-04-10 15:07:39,929 automl_forecast modeling.py modeling tft_fit_predict INFO: tft learning rate 설정
-2023-04-10 15:08:07,122 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 학습
-2023-04-10 15:10:13,707 automl_forecast modeling.py modeling tft_fit_predict INFO: 훈련, 검증 데이터 프레임 생성
-2023-04-10 15:10:13,912 automl_forecast modeling.py modeling tft_fit_predict INFO: 예측 데이터 프레임 생성
-2023-04-10 15:10:14,402 automl_forecast modeling.py modeling get_best_model INFO: Auto ML 가동
-2023-04-10 15:10:14,402 automl_forecast modeling.py modeling get_best_model INFO: automl_score:{'MAPE': {'ari': 0.968, 'ets': 11.192, 'fb': 9.191, 'tft': 0.952}, 'MAE': {'ari': 63.9, 'ets': 555.308, 'fb': 177.935, 'tft': 70.515}, 'MSE': {'ari': 14475.104, 'ets': 6261555.032, 'fb': 1144492.113, 'tft': 16807.308}, 'RMSE': {'ari': 120.313, 'ets': 2502.31, 'fb': 1069.809, 'tft': 129.643}, '상관계수': {'ari': 0.66, 'ets': -146.279, 'fb': -25.92, 'tft': 0.605}, '정확성': {'ari': 0.032, 'ets': -10.192, 'fb': -8.191, 'tft': 0.048}, '근사치': {'ari': 97.96, 'ets': 71.297, 'fb': 113.132, 'tft': 118.84}}
-2023-04-10 15:10:14,403 automl_forecast modeling.py modeling get_best_model INFO: best_model_name: ari
-2023-04-10 15:10:14,403 automl_forecast modeling.py modeling get_best_model INFO: best 모델 저장
-2023-04-10 15:10:14,403 automl_forecast modeling.py modeling get_best_model INFO:  ARIMA(0,1,1)(0,0,0)[0]          
-2023-04-10 15:10:14,444 automl_forecast modeling.py modeling make_report INFO: 학습 결과를 위한 결과물 생성
-2023-04-10 15:10:14,447 automl_forecast modeling.py modeling get_eval INFO: best 모델 및 전체 모델 검증치 추출
+2023-04-12 15:02:43,164 automl_forecast modeling.py modeling fb_fit_predict INFO: fbprophet 데이터 준비
+2023-04-12 15:02:43,166 automl_forecast modeling.py modeling fb_fit_predict INFO: fbprophet 모델링 시작
+2023-04-12 15:02:43,181 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:43,538 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:44,110 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:44,458 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:45,088 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:45,368 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:45,890 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:46,159 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:46,678 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:46,879 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:47,280 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:47,641 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:48,226 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:48,423 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:48,858 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:49,063 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:49,501 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:49,707 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:50,174 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:50,368 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:50,816 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:51,013 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:51,457 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:51,666 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:52,092 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:52,282 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:52,697 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:52,903 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:53,351 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:53,776 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:54,429 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:54,812 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:55,456 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:55,678 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:56,157 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:56,348 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:56,797 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:56,991 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:57,415 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:57,609 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:58,021 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:58,580 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:59,354 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:02:59,542 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:02:59,975 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:00,177 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:00,612 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:00,828 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:01,319 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:01,512 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:01,940 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:02,153 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:02,580 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:02,779 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:03,209 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:03,419 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:03,866 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:04,077 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:04,507 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:04,741 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:05,204 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:05,413 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:05,840 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:06,043 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:06,480 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:06,675 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:07,093 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:07,303 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:07,728 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:08,317 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:09,149 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:09,355 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:09,778 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:10,024 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:10,463 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:10,683 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:11,139 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:11,346 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:11,809 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:12,009 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:12,471 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:12,676 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:13,121 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:13,316 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:13,742 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:13,956 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:14,396 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:14,937 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:15,734 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:16,115 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:16,702 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:16,915 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:17,368 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:17,583 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:18,014 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:18,209 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:18,623 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:18,843 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:19,272 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:19,504 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:19,940 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:20,177 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:20,663 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:20,907 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:21,392 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:21,586 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:22,015 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:22,218 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:22,653 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:22,893 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:23,324 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:23,525 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:23,958 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:24,156 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:24,582 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:24,786 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:25,229 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:25,476 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:25,885 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:26,094 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:26,532 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:26,740 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:27,178 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:27,378 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:27,792 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:28,010 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:28,421 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:28,848 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:29,464 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:29,656 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:30,106 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:30,292 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:30,719 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:30,916 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:31,378 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:31,564 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:31,978 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:32,197 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:32,612 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:32,802 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:33,235 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:33,465 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:33,924 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:34,131 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:34,589 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:35,127 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:35,835 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:36,331 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:36,994 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:37,180 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:37,599 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:37,808 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:38,256 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:38,441 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:38,844 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:39,414 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:40,229 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:40,430 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:40,873 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:41,100 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:41,511 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:41,720 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:42,163 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:42,374 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:42,808 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:43,014 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:43,430 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:43,624 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:44,051 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:44,259 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:44,677 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:44,904 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:45,343 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:45,525 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:45,949 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:46,203 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:46,644 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:46,835 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:47,250 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:47,445 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:47,869 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:48,078 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:48,501 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:48,906 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:49,531 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:49,732 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:50,204 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:50,396 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:50,840 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:51,045 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:51,471 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:51,673 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:52,082 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:52,290 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:52,705 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:52,908 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:53,334 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:53,560 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:53,994 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:54,190 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:54,598 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:55,157 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:55,976 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:56,309 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:56,856 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:57,060 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:57,512 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:57,720 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:58,195 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:58,432 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:58,863 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:59,049 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:03:59,470 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:03:59,854 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:00,522 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:00,729 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:01,152 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:01,370 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:01,813 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:02,011 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:02,450 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:02,663 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:03,097 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:03,288 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:03,720 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:03,927 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:04,403 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:04,628 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:05,068 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:05,266 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:05,660 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:05,863 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:06,292 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:06,496 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:06,917 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:07,109 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:07,493 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:07,710 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:08,117 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:08,305 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:08,711 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:09,054 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:09,613 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:09,815 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:10,256 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:10,458 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:10,896 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:11,115 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:11,523 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:11,722 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:12,123 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:12,315 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:12,719 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:12,926 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:13,322 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:13,529 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:13,957 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:14,356 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:15,002 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:15,288 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:15,771 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:15,965 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:16,372 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:16,572 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:16,985 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:17,191 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:17,620 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:17,811 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:18,198 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:18,395 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:18,817 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:19,032 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:19,439 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:19,688 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:20,176 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:20,361 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:20,775 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:20,969 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:21,408 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:21,602 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:22,002 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:22,183 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:22,582 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:22,813 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:23,230 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:23,439 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:23,848 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행
+2023-04-12 15:04:24,051 automl_forecast modeling.py modeling fb_fit_predict INFO: fb HPO 진행 후 parameters: {'changepoint_prior_scale': 1.8758278936425756, 'changepoint_range': 0.8950714306409916}
+2023-04-12 15:04:24,562 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 준비
+2023-04-12 15:04:24,562 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 데이터 전처리
+2023-04-12 15:04:24,582 automl_forecast modeling.py modeling tft_fit_predict INFO: tft dataloader 세팅
+2023-04-12 15:04:25,354 automl_forecast modeling.py modeling tft_fit_predict INFO: tft learning rate 설정
+2023-04-12 15:04:54,707 automl_forecast modeling.py modeling tft_fit_predict INFO: tft 학습
+2023-04-12 15:05:36,265 automl_forecast modeling.py modeling tft_fit_predict INFO: 훈련, 검증 데이터 프레임 생성
+2023-04-12 15:05:36,447 automl_forecast modeling.py modeling tft_fit_predict INFO: 예측 데이터 프레임 생성
+2023-04-12 15:05:36,967 automl_forecast modeling.py modeling get_best_model INFO: Auto ML 가동
+2023-04-12 15:05:36,968 automl_forecast modeling.py modeling get_best_model INFO: automl_score:{'MAPE': {'fb': 1.084}, 'MAE': {'fb': 67.756}, 'MSE': {'fb': 15751.94}, 'RMSE': {'fb': 125.507}, '상관계수': {'fb': 0.629}, '정확성': {'fb': -0.084}, 'COVER율': {'fb': 91.069}}
+2023-04-12 15:05:36,968 automl_forecast modeling.py modeling get_best_model INFO: best_model_name: fb
+2023-04-12 15:05:36,968 automl_forecast modeling.py modeling get_best_model INFO: best 모델 저장
+2023-04-12 15:05:36,969 automl_forecast modeling.py modeling get_best_model INFO: <prophet.forecaster.Prophet object at 0x0000012A25102350>
+2023-04-12 15:05:36,980 automl_forecast modeling.py modeling make_report INFO: 학습 결과를 위한 결과물 생성
+2023-04-12 15:05:36,983 automl_forecast modeling.py modeling get_eval INFO: best 모델 및 전체 모델 검증치 추출

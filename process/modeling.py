@@ -81,8 +81,7 @@ class Modeling:
         self.score['MSE']     = dict() #mean_squared_error(y_test, y_pred)
         self.score['RMSE']    = dict() #np.sqrt(mean_squared_error(y_test, y_pred))
         self.score['상관계수'] = dict() #r2_score(y_test, y_pred)
-        self.score['정확성']   = dict() #1-MAPE
-        self.score['근사치']   = dict()
+        self.score['COVER율']   = dict()
         
         self.result_df['train_df'] = dict()
         self.result_df['val_df'] = dict()
@@ -217,8 +216,7 @@ class Modeling:
         self.score['MSE']['ari']      = np.round(mean_squared_error(y_test, y_pred), 3)
         self.score['RMSE']['ari']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
         self.score['상관계수']['ari']  = np.round(r2_score(y_test, y_pred), 3)
-        self.score['정확성']['ari']    = np.round(1-mean_absolute_percentage_error(y_test, y_pred), 3)
-        self.score['근사치']['ari']    = np.round(mape(y_test, y_pred), 3)
+        self.score['COVER율']['ari']    = np.round(mape(y_test, y_pred), 3)
 
         
 
@@ -329,8 +327,7 @@ class Modeling:
         self.score['MSE']['ets']      = np.round(mean_squared_error(y_test, y_pred), 3)
         self.score['RMSE']['ets']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
         self.score['상관계수']['ets']  = np.round(r2_score(y_test, y_pred), 3)
-        self.score['정확성']['ets']    = np.round(1-mean_absolute_percentage_error(y_test, y_pred), 3)
-        self.score['근사치']['ets']    = np.round(mape(y_test, y_pred), 3)
+        self.score['COVER율']['ets']    = np.round(mape(y_test, y_pred), 3)
 
         
 
@@ -457,8 +454,7 @@ class Modeling:
         self.score['MSE']['fb']      = np.round(mean_squared_error(y_test, y_pred), 3)
         self.score['RMSE']['fb']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
         self.score['상관계수']['fb']  = np.round(r2_score(y_test, y_pred), 3)
-        self.score['정확성']['fb']    = np.round(1-mean_absolute_percentage_error(y_test, y_pred), 3)
-        self.score['근사치']['fb']    = np.round(mape(y_test, y_pred), 3)
+        self.score['COVER율']['fb']    = np.round(mape(y_test, y_pred), 3)
   
 
 
@@ -730,8 +726,7 @@ class Modeling:
             self.score['MSE']['tft']      = np.round(mean_squared_error(y_test, y_pred), 3)
             self.score['RMSE']['tft']     = np.round(np.sqrt(mean_squared_error(y_test, y_pred)), 3)
             self.score['상관계수']['tft']  = np.round(r2_score(y_test, y_pred), 3)
-            self.score['정확성']['tft']    = np.round(1-mean_absolute_percentage_error(y_test, y_pred), 3)
-            self.score['근사치']['tft']    = np.round(mape(y_test, y_pred), 3)
+            self.score['COVER율']['tft']    = np.round(mape(y_test, y_pred), 3)
 
 
     #################### TFT FINISH #################### 
@@ -810,8 +805,7 @@ class Modeling:
                                       'MSE'    : [self.score['MSE'][best_model_name]], 
                                       'RMSE'   : [self.score['RMSE'][best_model_name]],
                                       '상관계수': [self.score['상관계수'][best_model_name]],
-                                      '정확성'  : [self.score['정확성'][best_model_name]],
-                                       '근사치' : [self.score['근사치'][best_model_name]]
+                                       'COVER율' : [self.score['COVER율'][best_model_name]]
                                       })
                  
             valid_score = pd.DataFrame(self.score)
